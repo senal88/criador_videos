@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T17:17:31.629Z",
+  "generatedAt": "2026-10-24T17:35:21.462Z",
   "collections": [
     {
       "name": "users",
@@ -29,14 +29,19 @@
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate"]
+          "autodateTriggers": [
+            "onCreate"
+          ]
         },
         {
           "name": "updated",
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate", "onUpdate"]
+          "autodateTriggers": [
+            "onCreate",
+            "onUpdate"
+          ]
         }
       ],
       "indexes": [
@@ -66,14 +71,22 @@
           "type": "select",
           "required": true,
           "system": false,
-          "selectValues": ["REELS 9:16", "YOUTUBE 16:9"]
+          "selectValues": [
+            "REELS 9:16",
+            "YOUTUBE 16:9"
+          ]
         },
         {
           "name": "status",
           "type": "select",
           "required": true,
           "system": false,
-          "selectValues": ["Em gravação", "Em edição", "Pronto para revisão", "Publicado"]
+          "selectValues": [
+            "Em gravação",
+            "Em edição",
+            "Pronto para revisão",
+            "Publicado"
+          ]
         },
         {
           "name": "progresso",
@@ -105,14 +118,19 @@
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate"]
+          "autodateTriggers": [
+            "onCreate"
+          ]
         },
         {
           "name": "updated",
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate", "onUpdate"]
+          "autodateTriggers": [
+            "onCreate",
+            "onUpdate"
+          ]
         }
       ],
       "indexes": [
@@ -155,14 +173,21 @@
           "type": "select",
           "required": true,
           "system": false,
-          "selectValues": ["Instagram Reels", "YouTube"]
+          "selectValues": [
+            "Instagram Reels",
+            "YouTube"
+          ]
         },
         {
           "name": "status",
           "type": "select",
           "required": true,
           "system": false,
-          "selectValues": ["Agendada", "Publicada", "Atrasada"]
+          "selectValues": [
+            "Agendada",
+            "Publicada",
+            "Atrasada"
+          ]
         },
         {
           "name": "owner",
@@ -176,14 +201,19 @@
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate"]
+          "autodateTriggers": [
+            "onCreate"
+          ]
         },
         {
           "name": "updated",
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate", "onUpdate"]
+          "autodateTriggers": [
+            "onCreate",
+            "onUpdate"
+          ]
         }
       ],
       "indexes": [
@@ -214,28 +244,42 @@
           "type": "select",
           "required": true,
           "system": false,
-          "selectValues": ["S23", "PC"]
+          "selectValues": [
+            "S23",
+            "PC"
+          ]
         },
         {
           "name": "destino",
           "type": "select",
           "required": true,
           "system": false,
-          "selectValues": ["PC", "S23"]
+          "selectValues": [
+            "PC",
+            "S23"
+          ]
         },
         {
           "name": "metodo",
           "type": "select",
           "required": true,
           "system": false,
-          "selectValues": ["Cabo USB", "Quick Share", "scrcpy"]
+          "selectValues": [
+            "Cabo USB",
+            "Quick Share",
+            "scrcpy"
+          ]
         },
         {
           "name": "status",
           "type": "select",
           "required": true,
           "system": false,
-          "selectValues": ["Em andamento", "Concluído", "Falhou"]
+          "selectValues": [
+            "Em andamento",
+            "Concluído",
+            "Falhou"
+          ]
         },
         {
           "name": "owner",
@@ -249,14 +293,19 @@
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate"]
+          "autodateTriggers": [
+            "onCreate"
+          ]
         },
         {
           "name": "updated",
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate", "onUpdate"]
+          "autodateTriggers": [
+            "onCreate",
+            "onUpdate"
+          ]
         }
       ],
       "indexes": [
@@ -305,17 +354,24 @@
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate"]
+          "autodateTriggers": [
+            "onCreate"
+          ]
         },
         {
           "name": "updated",
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate", "onUpdate"]
+          "autodateTriggers": [
+            "onCreate",
+            "onUpdate"
+          ]
         }
       ],
-      "indexes": ["CREATE INDEX idx_tarefas_owner ON tarefas_rapidas (owner)"]
+      "indexes": [
+        "CREATE INDEX idx_tarefas_owner ON tarefas_rapidas (owner)"
+      ]
     },
     {
       "name": "biblioteca_midia",
@@ -339,7 +395,12 @@
           "type": "select",
           "required": true,
           "system": false,
-          "selectValues": ["Áudio", "Vídeo", "Música", "Efeito sonoro"]
+          "selectValues": [
+            "Áudio",
+            "Vídeo",
+            "Música",
+            "Efeito sonoro"
+          ]
         },
         {
           "name": "categoria",
@@ -389,14 +450,19 @@
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate"]
+          "autodateTriggers": [
+            "onCreate"
+          ]
         },
         {
           "name": "updated",
           "type": "autodate",
           "required": false,
           "system": false,
-          "autodateTriggers": ["onCreate", "onUpdate"]
+          "autodateTriggers": [
+            "onCreate",
+            "onUpdate"
+          ]
         }
       ],
       "indexes": [

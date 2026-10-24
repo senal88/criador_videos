@@ -27,10 +27,25 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter var', 'SF Pro Display', 'system-ui', 'sans-serif'],
-        display: ['SF Pro Display', 'Inter var', 'system-ui', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'Inter var', 'system-ui', 'sans-serif'],
+        serif: ['Fraunces', 'Georgia', 'serif'],
+        script: ['Caveat', 'cursive'],
+        display: ['Fraunces', 'Georgia', 'serif'],
+        mono: ['JetBrains Mono', 'IBM Plex Mono', 'monospace'],
       },
       colors: {
+        brand: {
+          dark: '#1F3D2B',
+          darker: '#142419',
+          light: '#2E583E',
+          terracota: '#C4704F',
+          'terracota-light': '#D98A6C',
+          'terracota-soft': '#F4EAE4',
+          creme: '#F7F2E9',
+          'creme-card': '#FAF7F0',
+          sage: '#E5ECE5',
+          'sage-light': '#EEF3EE',
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

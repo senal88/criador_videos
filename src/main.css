@@ -1,5 +1,5 @@
-/* Global styles - Minimal Brutalism Aline Resolve */
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+/* Global styles - Aline Resolve (Elegante, Acolhedor, Soluções para Idosos e Famílias) */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,99 +7,104 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 7%; /* #111111 */
+    /* Fundo creme/off-white acolhedor: #F7F2E9 -> hsl(39, 45%, 94%) */
+    --background: 39 45% 94%;
+    /* Tinta escura verde-quase-preta: #142419 -> hsl(137, 29%, 11%) */
+    --foreground: 137 29% 11%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 7%;
+    /* Cartões creme claro / papel nobre: #FAF7F0 */
+    --card: 43 44% 96%;
+    --card-foreground: 137 29% 11%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 7%;
+    --popover: 43 44% 96%;
+    --popover-foreground: 137 29% 11%;
 
-    --primary: 53 92% 50%; /* #F5D90A */
-    --primary-foreground: 0 0% 7%;
+    /* Verde escuro elegante (cor primária da marca Aline Resolve): #1F3D2B -> hsl(144, 33%, 18%) */
+    --primary: 144 33% 18%;
+    --primary-foreground: 43 44% 96%;
 
-    --secondary: 0 0% 96%; /* #F4F4F4 */
-    --secondary-foreground: 0 0% 7%;
+    /* Terracota acolhedor (acento suave da marca): #C4704F -> hsl(17, 51%, 54%) */
+    --accent: 17 51% 54%;
+    --accent-foreground: 43 44% 96%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 33%; /* #555555 */
+    /* Secundário: tom sage suave #E5ECE5 */
+    --secondary: 120 15% 91%;
+    --secondary-foreground: 144 33% 18%;
 
-    --accent: 53 92% 50%;
-    --accent-foreground: 0 0% 7%;
+    /* Muted: fundo neutro suave */
+    --muted: 39 30% 90%;
+    --muted-foreground: 137 15% 38%;
 
-    --destructive: 0 74% 42%;
-    --destructive-foreground: 0 0% 100%;
+    /* Destrutivo refinado */
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 43 44% 96%;
 
-    --border: 0 0% 7%;
-    --input: 0 0% 7%;
-    --ring: 53 92% 50%;
+    /* Bordas sutis no tom verde escuro / sage */
+    --border: 144 20% 82%;
+    --input: 144 20% 82%;
+    --ring: 144 33% 18%;
 
-    --radius: 0px; /* BORDAS RETAS SEMPRE - BRUTALISMO */
+    --radius: 0.75rem; /* Cantos arredondados elegantes e acolhedores */
   }
 
   * {
     box-sizing: border-box;
-    border-radius: 0px !important; /* ZERO BORDER RADIUS EM TODO O APP */
+    border-color: hsl(var(--border));
   }
 
   body {
     margin: 0;
-    background-color: #ffffff;
-    color: #111111;
-    font-family:
-      'Archivo',
-      system-ui,
-      -apple-system,
-      sans-serif;
+    background-color: #F7F2E9;
+    color: #142419;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     font-size: 15px;
-    line-height: 1.5;
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, .font-serif-brand {
+    font-family: 'Fraunces', Georgia, serif;
+    letter-spacing: -0.015em;
+  }
+
+  .font-script-brand {
+    font-family: 'Caveat', cursive;
   }
 
   code,
   pre,
   kbd,
   samp {
-    font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
     font-size: 13px;
   }
 
-  /* Microinterações e Foco Brutalista */
   :focus-visible {
-    outline: 3px solid #f5d90a !important;
+    outline: 2px solid #C4704F !important;
     outline-offset: 2px !important;
   }
 }
 
 @layer utilities {
-  /* Sombra dura brutalista sem blur */
-  .shadow-brutal {
-    box-shadow: 4px 4px 0px 0px #111111;
+  /* Sombras suaves e elegantes */
+  .shadow-soft {
+    box-shadow: 0 4px 20px -2px rgba(31, 61, 43, 0.08), 0 2px 6px -1px rgba(31, 61, 43, 0.04);
   }
 
-  .shadow-brutal-sm {
-    box-shadow: 2px 2px 0px 0px #111111;
+  .shadow-soft-lg {
+    box-shadow: 0 10px 30px -4px rgba(31, 61, 43, 0.12), 0 4px 10px -2px rgba(31, 61, 43, 0.05);
   }
 
-  .shadow-brutal-hover {
-    transition:
-      transform 120ms ease-out,
-      box-shadow 120ms ease-out;
+  .shadow-card {
+    box-shadow: 0 1px 3px 0 rgba(31, 61, 43, 0.05), 0 1px 2px -1px rgba(31, 61, 43, 0.05);
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .shadow-brutal-hover:hover {
-      transform: translateY(-2px);
-      box-shadow: 4px 4px 0px 0px #111111;
-    }
+  .shadow-card-hover {
+    transition: transform 180ms ease, box-shadow 180ms ease;
   }
-
-  /* Checkbox pop */
-  .checkbox-pop {
-    transition: transform 80ms ease-out;
-  }
-  .checkbox-pop:active {
-    transform: scale(0.9);
+  .shadow-card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -3px rgba(31, 61, 43, 0.1), 0 4px 10px -2px rgba(31, 61, 43, 0.04);
   }
 }
