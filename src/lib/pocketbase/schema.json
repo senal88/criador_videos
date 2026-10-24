@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T16:41:04.214Z",
+  "generatedAt": "2026-10-24T17:17:31.629Z",
   "collections": [
     {
       "name": "users",
@@ -316,6 +316,94 @@
         }
       ],
       "indexes": ["CREATE INDEX idx_tarefas_owner ON tarefas_rapidas (owner)"]
+    },
+    {
+      "name": "biblioteca_midia",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != '' && owner = @request.auth.id",
+        "view": "@request.auth.id != '' && owner = @request.auth.id",
+        "create": "@request.auth.id != ''",
+        "update": "@request.auth.id != '' && owner = @request.auth.id",
+        "delete": "@request.auth.id != '' && owner = @request.auth.id"
+      },
+      "fields": [
+        {
+          "name": "titulo",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "tipo",
+          "type": "select",
+          "required": true,
+          "system": false,
+          "selectValues": ["Áudio", "Vídeo", "Música", "Efeito sonoro"]
+        },
+        {
+          "name": "categoria",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "descricao",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "duracao",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "url",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "favorito",
+          "type": "bool",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "arquivo",
+          "type": "file",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "owner",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "users"
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate", "onUpdate"]
+        }
+      ],
+      "indexes": [
+        "CREATE INDEX idx_biblioteca_owner ON biblioteca_midia (owner)",
+        "CREATE INDEX idx_biblioteca_tipo ON biblioteca_midia (tipo)",
+        "CREATE INDEX idx_biblioteca_favorito ON biblioteca_midia (favorito)"
+      ]
     }
   ]
 }
