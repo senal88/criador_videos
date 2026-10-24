@@ -1,0 +1,105 @@
+/* Global styles - Minimal Brutalism Aline Resolve */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 7%; /* #111111 */
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 7%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 7%;
+
+    --primary: 53 92% 50%; /* #F5D90A */
+    --primary-foreground: 0 0% 7%;
+
+    --secondary: 0 0% 96%; /* #F4F4F4 */
+    --secondary-foreground: 0 0% 7%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 33%; /* #555555 */
+
+    --accent: 53 92% 50%;
+    --accent-foreground: 0 0% 7%;
+
+    --destructive: 0 74% 42%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 7%;
+    --input: 0 0% 7%;
+    --ring: 53 92% 50%;
+
+    --radius: 0px; /* BORDAS RETAS SEMPRE - BRUTALISMO */
+  }
+
+  * {
+    box-sizing: border-box;
+    border-radius: 0px !important; /* ZERO BORDER RADIUS EM TODO O APP */
+  }
+
+  body {
+    margin: 0;
+    background-color: #ffffff;
+    color: #111111;
+    font-family:
+      'Archivo',
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  code,
+  pre,
+  kbd,
+  samp {
+    font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 13px;
+  }
+
+  /* Microinterações e Foco Brutalista */
+  :focus-visible {
+    outline: 3px solid #f5d90a !important;
+    outline-offset: 2px !important;
+  }
+}
+
+@layer utilities {
+  /* Sombra dura brutalista sem blur */
+  .shadow-brutal {
+    box-shadow: 4px 4px 0px 0px #111111;
+  }
+
+  .shadow-brutal-sm {
+    box-shadow: 2px 2px 0px 0px #111111;
+  }
+
+  .shadow-brutal-hover {
+    transition:
+      transform 120ms ease-out,
+      box-shadow 120ms ease-out;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .shadow-brutal-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 4px 4px 0px 0px #111111;
+    }
+  }
+
+  /* Checkbox pop */
+  .checkbox-pop {
+    transition: transform 80ms ease-out;
+  }
+  .checkbox-pop:active {
+    transform: scale(0.9);
+  }
+}
