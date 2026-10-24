@@ -8,6 +8,16 @@ export type Dispositivo = 'S23' | 'PC'
 export type MetodoTransferencia = 'Cabo USB' | 'Quick Share' | 'scrcpy'
 export type StatusTransferencia = 'Em andamento' | 'Concluído' | 'Falhou'
 
+export type EtapaChecklist =
+  | 'Cortado'
+  | 'Legendado'
+  | 'Colorido'
+  | 'Áudio normalizado'
+  | 'Exportado'
+  | 'Postado'
+
+export type ChecklistEdicao = Record<EtapaChecklist, boolean>
+
 export interface ProjetoRecord extends RecordModel {
   nome: string
   formato: FormatoProjeto
@@ -15,6 +25,14 @@ export interface ProjetoRecord extends RecordModel {
   progresso: number
   data_postagem?: string
   horario_postagem?: string
+  checklist_edicao?: ChecklistEdicao
+  owner: string
+}
+
+export interface EdicaoPresetRecord extends RecordModel {
+  name: string
+  command: string
+  description?: string
   owner: string
 }
 

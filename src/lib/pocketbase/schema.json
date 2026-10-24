@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T18:00:26.866Z",
+  "generatedAt": "2026-10-24T19:23:40.560Z",
   "collections": [
     {
       "name": "users",
@@ -113,6 +113,12 @@
           "required": false,
           "system": false,
           "autodateTriggers": ["onCreate", "onUpdate"]
+        },
+        {
+          "name": "checklist_edicao",
+          "type": "json",
+          "required": false,
+          "system": false
         }
       ],
       "indexes": [
@@ -409,6 +415,62 @@
         "CREATE INDEX idx_biblioteca_owner ON biblioteca_midia (owner)",
         "CREATE INDEX idx_biblioteca_tipo ON biblioteca_midia (tipo)",
         "CREATE INDEX idx_biblioteca_favorito ON biblioteca_midia (favorito)"
+      ]
+    },
+    {
+      "name": "edicao_presets",
+      "type": "base",
+      "apiRules": {
+        "list": "@request.auth.id != '' && owner = @request.auth.id",
+        "view": "@request.auth.id != '' && owner = @request.auth.id",
+        "create": "@request.auth.id != ''",
+        "update": "@request.auth.id != '' && owner = @request.auth.id",
+        "delete": "@request.auth.id != '' && owner = @request.auth.id"
+      },
+      "fields": [
+        {
+          "name": "name",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "command",
+          "type": "text",
+          "required": true,
+          "system": false
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "required": false,
+          "system": false
+        },
+        {
+          "name": "owner",
+          "type": "relation",
+          "required": true,
+          "system": false,
+          "collectionRef": "users"
+        },
+        {
+          "name": "created",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate"]
+        },
+        {
+          "name": "updated",
+          "type": "autodate",
+          "required": false,
+          "system": false,
+          "autodateTriggers": ["onCreate", "onUpdate"]
+        }
+      ],
+      "indexes": [
+        "CREATE INDEX idx_edicao_presets_owner ON edicao_presets (owner)",
+        "CREATE INDEX idx_edicao_presets_name ON edicao_presets (name)"
       ]
     }
   ]

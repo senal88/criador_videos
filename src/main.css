@@ -47,6 +47,27 @@
     --radius: 0.75rem; /* Cantos arredondados elegantes e acolhedores */
   }
 
+  /* Ocultar selo / watermark 'Criado pelo Skip' / 'Criado com o Skip' */
+  img[src*='skip.png'],
+  img[alt*='Skip' i],
+  a[href*='goskip.dev'],
+  a[href*='skip.it'],
+  [data-skip-badge],
+  [class*='skip-badge'],
+  [id*='skip-badge'],
+  div[style*='z-index: 2147483647']:has(img[src*='skip']),
+  div:has(> img[src*='skip.png']),
+  div:has(> a[href*='goskip.dev']),
+  div:has(> a[href*='skip.it']) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+
   * {
     box-sizing: border-box;
     border-color: hsl(var(--border));

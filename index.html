@@ -16,5 +16,69 @@
     <script src="https://goskip.dev/skip.js"></script>
     <!-- @skip-protected: Do not remove. App entrypoint. -->
     <script type="module" src="/src/main.tsx"></script>
+    <!-- Script de remoção contínua do selo de marca d'água -->
+    <script>
+      (function() {
+        function removeSkipBadge() {
+          try {
+            // Busca elementos pelo texto "Criado pelo Skip" ou "Criado com o Skip"
+            var walker = document.createTreeWalker(document.body || document.documentElement, NodeFilter.SHOW_TEXT, null, false);
+            var node;
+            var nodesToRemove = [];
+            while (node = walker.nextNode()) {
+              var text = (node.nodeValue || '').trim().toLowerCase();
+              if (text.includes('criado pelo skip') || text.includes('criado com o skip') || text.includes('feito com skip')) {
+                var el = node.parentElement;
+                while (el && el !== document.body && el !== document.documentElement) {
+                  // Se for um container flutuante ou link do rodapé
+                  var style = window.getComputedStyle(el);
+                  if (style.position === 'fixed' || style.position === 'absolute' || el.tagName === 'A' || el.classList.contains('skip-badge') || el.hasAttribute('data-skip-badge')) {
+                    nodesToRemove.push(el);
+                    break;
+                  }
+                  el = el.parentElement;
+                }
+              }
+            }
+            nodesToRemove.forEach(function(el) {
+              if (el && el.parentNode) {
+                el.parentNode.removeChild(el);
+              }
+            });
+
+            // Busca imagens do skip
+            var imgs = document.querySelectorAll('img[src*="skip.png"], img[alt*="Skip" i]');
+            imgs.forEach(function(img) {
+              var parent = img.closest('a, div, footer, span');
+              if (parent && parent !== document.body) {
+                parent.style.setProperty('display', 'none', 'important');
+              } else {
+                img.style.setProperty('display', 'none', 'important');
+              }
+            });
+
+            // Links para goskip.dev
+            var links = document.querySelectorAll('a[href*="goskip.dev"], a[href*="skip.it"]');
+            links.forEach(function(a) {
+              a.style.setProperty('display', 'none', 'important');
+              var parent = a.parentElement;
+              if (parent && (parent.children.length === 1 || parent.innerText.toLowerCase().includes('skip'))) {
+                parent.style.setProperty('display', 'none', 'important');
+              }
+            });
+          } catch (e) {}
+        }
+
+        // Executar imediatamente e com observer
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', removeSkipBadge);
+        } else {
+          removeSkipBadge();
+        }
+        window.addEventListener('load', removeSkipBadge);
+        var observer = new MutationObserver(removeSkipBadge);
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+      })();
+    </script>
   </body>
 </html>
