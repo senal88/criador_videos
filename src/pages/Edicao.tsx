@@ -10,6 +10,13 @@ import type {
   EdicaoPresetRecord,
 } from '@/types/database'
 import {
+  ETAPAS_CHECKLIST_PADRAO,
+  normalizeChecklistEdicao,
+  countEtapasConcluidas,
+  calculateProjetoProgresso,
+  deriveStatusFromChecklist,
+} from '@/lib/checklist'
+import {
   Copy,
   Check,
   Scissors,
@@ -40,15 +47,6 @@ interface ItemCorte {
   rotulo: string
 }
 
-const ETAPAS_CHECKLIST_PADRAO: EtapaChecklist[] = [
-  'Cortado',
-  'Legendado',
-  'Colorido',
-  'Áudio normalizado',
-  'Exportado',
-  'Postado',
-]
-
 export const Edicao: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
@@ -59,8 +57,7 @@ export const Edicao: React.FC = () => {
   const [selectedProjetoId, setSelectedProjetoId] = useState<string>('')
   const [selectedProjeto, setSelectedProjeto] = useState<ProjetoRecord | null>(null)
 
-  // Status e progresso editáveis do projeto selecionado
-  const [progresso, setProgresso] = useState<number>(0)
+  // Status e progresso do projeto selecionado
   const [status, setStatus] = useState<StatusProjeto>('Em edição')
   const [isSaving, setIsSaving] = useState(false)
 
@@ -140,7 +137,6 @@ export const Edicao: React.FC = () => {
           }
           setSelectedProjetoId(chosen.id)
           setSelectedProjeto(chosen)
-          setProgresso(chosen.progresso || 0)
           setStatus(chosen.status)
           initChecklistFromProjeto(chosen)
         }
@@ -152,15 +148,7 @@ export const Edicao: React.FC = () => {
 
   // Inicializa o checklist garantindo todas as chaves
   const initChecklistFromProjeto = (proj: ProjetoRecord) => {
-    const raw = (proj.checklist_edicao || {}) as Partial<ChecklistEdicao>
-    const filled: ChecklistEdicao = {
-      Cortado: Boolean(raw.Cortado),
-      Legendado: Boolean(raw.Legendado),
-      Colorido: Boolean(raw.Colorido),
-      'Áudio normalizado': Boolean(raw['Áudio normalizado']),
-      Exportado: Boolean(raw.Exportado),
-      Postado: Boolean(raw.Postado),
-    }
+    const filled = normalizeChecklistEdicao(proj.checklist_edicao)
     setChecklist(filled)
   }
 
@@ -204,26 +192,26 @@ export const Edicao: React.FC = () => {
     const found = projetos.find((p) => p.id === id)
     if (found) {
       setSelectedProjeto(found)
-      setProgresso(found.progresso || 0)
       setStatus(found.status)
       initChecklistFromProjeto(found)
     }
   }
 
-  // Salvar alterações de progresso/status no banco
+  // Salvar status selecionado no banco
   const handleSalvarProjeto = async () => {
     if (!selectedProjeto) return
     setIsSaving(true)
     try {
+      const progressoCalculado = calculateProjetoProgresso(checklist)
       const updated = await updateProjeto(selectedProjeto.id, {
-        progresso: Number(progresso),
         status,
+        progresso: progressoCalculado,
       })
       setSelectedProjeto(updated)
       setProjetos((prev) => prev.map((p) => (p.id === updated.id ? updated : p)))
       toast({
         title: 'Projeto atualizado!',
-        description: `Progresso: ${updated.progresso}% | Status: ${updated.status}`,
+        description: `Progresso: ${progressoCalculado}% (derivado do checklist) | Status: ${updated.status}`,
       })
     } catch (err) {
       console.error(err)
@@ -253,20 +241,10 @@ export const Edicao: React.FC = () => {
     }
     setChecklist(novoChecklist)
 
-    // Calcular novo progresso proporcional às 6 etapas (100 / 6 ≈ 16.66% por etapa)
-    const etapasConcluidas = Object.values(novoChecklist).filter(Boolean).length
-    const novoProgresso = Math.round((etapasConcluidas / ETAPAS_CHECKLIST_PADRAO.length) * 100)
+    // O progresso SEMPRE é derivado do checklist: etapas marcadas ÷ 6 em %
+    const novoProgresso = calculateProjetoProgresso(novoChecklist)
+    const novoStatus = deriveStatusFromChecklist(novoChecklist, status)
 
-    let novoStatus = status
-    if (etapasConcluidas === ETAPAS_CHECKLIST_PADRAO.length) {
-      novoStatus = 'Publicado'
-    } else if (etapasConcluidas >= 5) {
-      novoStatus = 'Pronto para revisão'
-    } else if (etapasConcluidas > 0) {
-      novoStatus = 'Em edição'
-    }
-
-    setProgresso(novoProgresso)
     setStatus(novoStatus)
 
     setIsSavingChecklist(true)
@@ -495,7 +473,12 @@ export const Edicao: React.FC = () => {
 
   // Contagem do progresso das etapas
   const etapasConcluidasCount = useMemo(() => {
-    return ETAPAS_CHECKLIST_PADRAO.filter((e) => checklist[e]).length
+    return countEtapasConcluidas(checklist)
+  }, [checklist])
+
+  // Progresso derivado SEMPRE do checklist das 6 etapas
+  const progressoDerivado = useMemo(() => {
+    return calculateProjetoProgresso(checklist)
   }, [checklist])
 
   return (
@@ -540,17 +523,18 @@ export const Edicao: React.FC = () => {
 
             <div>
               <label className="block text-[11px] font-semibold text-[#1F3D2B]/70 mb-1">
-                Progresso ({progresso}%)
+                Progresso ({progressoDerivado}%)
               </label>
-              <div className="flex items-center gap-2">
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={progresso}
-                  onChange={(e) => setProgresso(Number(e.target.value))}
-                  className="w-28 h-2 bg-[#EEF3EE] rounded-lg accent-[#C4704F] cursor-pointer"
-                />
+              <div className="flex items-center gap-2.5 h-10 px-3 bg-white border border-[#1F3D2B]/20 rounded-xl">
+                <div className="w-24 h-2 bg-[#EEF3EE] rounded-full overflow-hidden border border-[#1F3D2B]/10">
+                  <div
+                    className="h-full bg-gradient-to-r from-[#1F3D2B] to-[#C4704F] transition-all duration-300 rounded-full"
+                    style={{ width: `${progressoDerivado}%` }}
+                  />
+                </div>
+                <span className="text-xs font-mono font-bold text-[#1F3D2B] min-w-[36px] text-right">
+                  {progressoDerivado}%
+                </span>
               </div>
             </div>
 
@@ -558,6 +542,7 @@ export const Edicao: React.FC = () => {
               onClick={handleSalvarProjeto}
               disabled={isSaving}
               className="h-10 px-4 bg-[#C4704F] hover:bg-[#D98A6C] text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shadow-card hover:shadow-soft cursor-pointer self-end disabled:opacity-50"
+              title="Salvar alterações de status do projeto"
             >
               <Save className="w-4 h-4" />
               <span>{isSaving ? 'Salvando...' : 'Salvar Alterações'}</span>

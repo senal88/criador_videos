@@ -5,6 +5,7 @@ import { getProjetos, createProjeto } from '@/services/projetos'
 import { getPostagens } from '@/services/postagens'
 import { getTarefasRapidas, toggleTarefaRapida } from '@/services/tarefas'
 import type { ProjetoRecord, PostagemRecord, TarefaRapidaRecord } from '@/types/database'
+import { getProgressoFromProjeto } from '@/lib/checklist'
 import {
   Scissors,
   Palette,
@@ -401,6 +402,8 @@ export const Index: React.FC = () => {
                     dataFormatada = `${String(d.getUTCDate()).padStart(2, '0')} ${meses[d.getUTCMonth()]}`
                   }
 
+                  const progressoChecklist = getProgressoFromProjeto(proj)
+
                   return (
                     <tr key={proj.id} className="hover:bg-white/80 transition-colors h-14">
                       <td className="py-3.5 px-5 font-semibold text-sm text-[#142419]">
@@ -416,11 +419,11 @@ export const Index: React.FC = () => {
                           <div className="flex-1 h-2.5 bg-[#EEF3EE] rounded-full overflow-hidden border border-[#1F3D2B]/10">
                             <div
                               className="h-full bg-[#C4704F] transition-all rounded-full"
-                              style={{ width: `${proj.progresso || 0}%` }}
+                              style={{ width: `${progressoChecklist}%` }}
                             />
                           </div>
                           <span className="text-xs font-semibold font-mono text-[#1F3D2B] w-9 text-right">
-                            {proj.progresso || 0}%
+                            {progressoChecklist}%
                           </span>
                         </div>
                       </td>
