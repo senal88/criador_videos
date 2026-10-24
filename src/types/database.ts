@@ -45,3 +45,17 @@ export interface TarefaRapidaRecord extends RecordModel {
   ordem?: number
   owner: string
 }
+
+export type TipoMidia = 'Áudio' | 'Vídeo' | 'Música' | 'Efeito sonoro'
+
+export interface BibliotecaMidiaRecord extends RecordModel {
+  titulo: string
+  tipo: TipoMidia
+  categoria: string
+  descricao?: string
+  duracao?: string
+  url?: string
+  favorito?: boolean
+  arquivo?: string
+  owner: string
+}

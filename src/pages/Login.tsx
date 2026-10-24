@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
-import { Play, AlertCircle } from 'lucide-react'
+import { AlertCircle, ArrowRight, ShieldCheck, Heart } from 'lucide-react'
+import BrandLogo from '@/components/BrandLogo'
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('luizfernandomoreirasena@gmail.com')
@@ -31,60 +32,54 @@ const Login: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#F4F4F4] flex flex-col justify-center items-center p-4">
-      <div className="w-full max-w-md bg-white border-2 border-black p-8 shadow-[4px_4px_0px_0px_#111]">
+    <div className="min-h-screen bg-[#F7F2E9] flex flex-col justify-center items-center p-4 selection:bg-[#C4704F] selection:text-white">
+      <div className="w-full max-w-md bg-[#FAF7F0] border border-[#1F3D2B]/15 rounded-3xl p-8 md:p-10 shadow-soft-lg space-y-6">
         {/* Header Logo */}
-        <div className="flex items-center gap-3 mb-6 border-b-2 border-black pb-4">
-          <div className="w-10 h-10 bg-[#F5D90A] border-2 border-black flex items-center justify-center">
-            <Play className="w-5 h-5 fill-black text-black" />
-          </div>
-          <div>
-            <h1 className="text-xl font-bold uppercase tracking-wider text-[#111]">
-              ALINE RESOLVE
-            </h1>
-            <p className="text-xs uppercase tracking-widest text-[#555] font-medium">
-              PRODUÇÃO DE VÍDEOS · INSTAGRAM
+        <div className="flex flex-col items-center text-center space-y-3 pb-2 border-b border-[#1F3D2B]/10">
+          <BrandLogo size="lg" />
+          <div className="pt-2">
+            <p className="font-serif italic text-base text-[#1F3D2B] font-medium leading-relaxed">
+              &ldquo;Você cuida de quem você ama. Eu resolvo o resto.&rdquo;
+            </p>
+            <p className="text-xs text-[#1F3D2B]/75 mt-1">
+              Organização, orientação e acompanhamento para idosos e suas famílias.
             </p>
           </div>
         </div>
 
-        <h2 className="text-2xl font-bold uppercase tracking-tight text-[#111] mb-2">
-          ENTRAR NO SISTEMA
-        </h2>
-        <p className="text-sm text-[#555] mb-6">
-          Acesse seu painel integrado de produção e edição de vídeos.
-        </p>
+        <div>
+          <h2 className="text-xl font-serif font-bold text-[#1F3D2B]">Entrar no Painel</h2>
+          <p className="text-xs text-[#1F3D2B]/70 mt-1">
+            Acesse o gerenciador de mídias, tutoriais e projetos.
+          </p>
+        </div>
 
         {error && (
-          <div className="mb-6 p-3 bg-[#FDE8E8] border-2 border-[#9B1C1C] flex items-center gap-2 text-[#9B1C1C] text-sm font-medium">
-            <AlertCircle className="w-5 h-5 shrink-0" />
+          <div className="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 flex items-center gap-2.5 text-rose-800 text-xs font-medium">
+            <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
             <span>{error}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-[#111] mb-1">
-              E-mail
-            </label>
+            <label className="block text-xs font-semibold text-[#1F3D2B] mb-1.5">E-mail</label>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full h-11 px-3 border-2 border-black bg-white text-[#111] text-sm focus:outline-none focus:ring-2 focus:ring-[#F5D90A] focus:border-black rounded-none"
+              className="w-full h-11 px-3.5 rounded-xl border border-[#1F3D2B]/20 bg-white text-[#142419] text-sm focus:outline-none focus:ring-2 focus:ring-[#C4704F]"
               placeholder="seu@email.com"
             />
           </div>
 
           <div>
-            <div className="flex justify-between items-center mb-1">
-              <label className="text-xs font-bold uppercase tracking-wider text-[#111]">
-                Senha
-              </label>
+            <div className="flex justify-between items-center mb-1.5">
+              <label className="text-xs font-semibold text-[#1F3D2B]">Senha</label>
               <Link
                 to="/forgot-password"
-                className="text-xs font-medium text-[#555] hover:text-black underline"
+                className="text-xs font-medium text-[#C4704F] hover:text-[#1F3D2B] underline"
               >
                 Esqueceu a senha?
               </Link>
@@ -94,7 +89,7 @@ const Login: React.FC = () => {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full h-11 px-3 border-2 border-black bg-white text-[#111] text-sm focus:outline-none focus:ring-2 focus:ring-[#F5D90A] focus:border-black rounded-none"
+              className="w-full h-11 px-3.5 rounded-xl border border-[#1F3D2B]/20 bg-white text-[#142419] text-sm focus:outline-none focus:ring-2 focus:ring-[#C4704F]"
               placeholder="••••••••"
             />
           </div>
@@ -103,26 +98,36 @@ const Login: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-12 bg-[#F5D90A] hover:bg-[#ffe31a] active:translate-y-[1px] text-black font-bold uppercase tracking-wider text-sm border-2 border-black transition-all flex items-center justify-center cursor-pointer disabled:opacity-50"
+              className="w-full h-12 rounded-xl bg-[#1F3D2B] hover:bg-[#2E583E] text-[#FAF7F0] font-semibold text-sm transition-all shadow-card hover:shadow-soft flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
             >
-              {loading ? 'AUTENTICANDO...' : 'ACESSAR DASHBOARD'}
+              <span>{loading ? 'Acessando...' : 'Acessar Painel'}</span>
+              <ArrowRight className="w-4 h-4 text-[#D98A6C]" />
             </button>
           </div>
         </form>
 
-        <div className="mt-6 pt-4 border-t border-black/20 flex flex-col gap-2 text-center text-xs text-[#555]">
-          <div>
+        <div className="pt-4 border-t border-[#1F3D2B]/10 space-y-4 text-xs text-[#1F3D2B]/70">
+          <div className="text-center">
             Não tem uma conta?{' '}
-            <Link to="/signup" className="font-bold text-black underline uppercase">
+            <Link
+              to="/signup"
+              className="font-semibold text-[#C4704F] hover:text-[#1F3D2B] underline"
+            >
               Cadastre-se
             </Link>
           </div>
-          <div className="p-2 bg-[#F4F4F4] border border-black/30 mt-2 text-left">
-            <p className="font-bold text-[#111] mb-1">ACESSO DE TESTE RÁPIDO:</p>
-            <p className="font-mono text-xs text-[#333]">
-              E-mail: luizfernandomoreirasena@gmail.com
+
+          <div className="p-3 rounded-2xl bg-[#EEF3EE]/80 border border-[#1F3D2B]/15">
+            <div className="flex items-center gap-1.5 font-semibold text-[#1F3D2B] mb-1">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-700" />
+              <span>Acesso da Proprietária (Padrão):</span>
+            </div>
+            <p className="font-mono text-[11px] text-[#142419]">
+              E-mail: <strong className="text-[#1F3D2B]">luizfernandomoreirasena@gmail.com</strong>
             </p>
-            <p className="font-mono text-xs text-[#333]">Senha: Skip@Pass</p>
+            <p className="font-mono text-[11px] text-[#142419]">
+              Senha: <strong className="text-[#1F3D2B]">Skip@Pass</strong>
+            </p>
           </div>
         </div>
       </div>

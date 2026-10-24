@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import pb from '@/lib/pocketbase/client'
-import { Play, AlertCircle, CheckCircle } from 'lucide-react'
+import { AlertCircle, CheckCircle, ArrowLeft } from 'lucide-react'
+import BrandLogo from '@/components/BrandLogo'
 
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState('')
@@ -26,59 +27,50 @@ const ForgotPassword: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#F4F4F4] flex flex-col justify-center items-center p-4">
-      <div className="w-full max-w-md bg-white border-2 border-black p-8 shadow-[4px_4px_0px_0px_#111]">
-        <div className="flex items-center gap-3 mb-6 border-b-2 border-black pb-4">
-          <div className="w-10 h-10 bg-[#F5D90A] border-2 border-black flex items-center justify-center">
-            <Play className="w-5 h-5 fill-black text-black" />
-          </div>
-          <div>
-            <h1 className="text-xl font-bold uppercase tracking-wider text-[#111]">
-              ALINE RESOLVE
-            </h1>
-            <p className="text-xs uppercase tracking-widest text-[#555] font-medium">
-              PRODUÇÃO DE VÍDEOS · INSTAGRAM
-            </p>
-          </div>
+    <div className="min-h-screen bg-[#F7F2E9] flex flex-col justify-center items-center p-4">
+      <div className="w-full max-w-md bg-[#FAF7F0] border border-[#1F3D2B]/15 rounded-3xl p-8 md:p-10 shadow-soft-lg space-y-6">
+        <div className="flex flex-col items-center text-center space-y-3 pb-2 border-b border-[#1F3D2B]/10">
+          <BrandLogo size="lg" />
         </div>
 
-        <h2 className="text-2xl font-bold uppercase tracking-tight text-[#111] mb-2">
-          RECUPERAR SENHA
-        </h2>
-        <p className="text-sm text-[#555] mb-6">
-          Informe seu e-mail para receber as instruções de redefinição de acesso.
-        </p>
+        <div>
+          <h2 className="text-xl font-serif font-bold text-[#1F3D2B]">Recuperar Senha</h2>
+          <p className="text-xs text-[#1F3D2B]/70 mt-1">
+            Informe seu e-mail para receber as orientações de redefinição.
+          </p>
+        </div>
 
         {error && (
-          <div className="mb-6 p-3 bg-[#FDE8E8] border-2 border-[#9B1C1C] flex items-center gap-2 text-[#9B1C1C] text-sm font-medium">
-            <AlertCircle className="w-5 h-5 shrink-0" />
+          <div className="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 flex items-center gap-2.5 text-rose-800 text-xs font-medium">
+            <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
             <span>{error}</span>
           </div>
         )}
 
         {submitted ? (
-          <div className="p-4 bg-[#E6F4EA] border-2 border-[#1D6B3A] text-[#1D6B3A] space-y-3">
-            <div className="flex items-center gap-2 font-bold uppercase text-sm">
-              <CheckCircle className="w-5 h-5" />
+          <div className="p-5 rounded-2xl bg-[#EEF3EE] border border-[#1F3D2B]/15 space-y-3 text-xs text-[#142419]">
+            <div className="flex items-center gap-2 font-bold text-[#1F3D2B] text-sm">
+              <CheckCircle className="w-5 h-5 text-emerald-700" />
               <span>Instruções enviadas!</span>
             </div>
-            <p className="text-xs">
+            <p>
               Se houver uma conta associada a <strong>{email}</strong>, você receberá um link de
               redefinição em instantes.
             </p>
             <div className="pt-2">
               <Link
                 to="/login"
-                className="inline-block px-4 py-2 bg-black text-white text-xs font-bold uppercase tracking-wider hover:bg-[#333]"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1F3D2B] text-[#FAF7F0] font-semibold text-xs hover:bg-[#2E583E] transition-colors"
               >
-                Voltar ao Login
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Voltar ao Login</span>
               </Link>
             </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#111] mb-1">
+              <label className="block text-xs font-semibold text-[#1F3D2B] mb-1.5">
                 E-mail cadastrado
               </label>
               <input
@@ -86,7 +78,7 @@ const ForgotPassword: React.FC = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full h-11 px-3 border-2 border-black bg-white text-[#111] text-sm focus:outline-none focus:ring-2 focus:ring-[#F5D90A] focus:border-black rounded-none"
+                className="w-full h-11 px-3.5 rounded-xl border border-[#1F3D2B]/20 bg-white text-[#142419] text-sm focus:outline-none focus:ring-2 focus:ring-[#C4704F]"
                 placeholder="seu@email.com"
               />
             </div>
@@ -95,18 +87,19 @@ const ForgotPassword: React.FC = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full h-12 bg-[#F5D90A] hover:bg-[#ffe31a] text-black font-bold uppercase tracking-wider text-sm border-2 border-black transition-all flex items-center justify-center cursor-pointer disabled:opacity-50"
+                className="w-full h-12 rounded-xl bg-[#1F3D2B] hover:bg-[#2E583E] text-[#FAF7F0] font-semibold text-sm transition-all shadow-card hover:shadow-soft flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
-                {loading ? 'ENVIANDO...' : 'ENVIAR LINK DE RECUPERAÇÃO'}
+                {loading ? 'Enviando...' : 'Enviar Link de Recuperação'}
               </button>
             </div>
 
             <div className="text-center pt-2">
               <Link
                 to="/login"
-                className="text-xs font-bold uppercase text-[#555] hover:text-black underline"
+                className="text-xs font-semibold text-[#1F3D2B]/80 hover:text-[#1F3D2B] inline-flex items-center gap-1.5"
               >
-                ← Voltar para o Login
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Voltar ao Login</span>
               </Link>
             </div>
           </form>
