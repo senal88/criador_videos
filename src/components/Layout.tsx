@@ -209,10 +209,10 @@ export const Layout: React.FC<LayoutProps> = () => {
                   <span className="w-2 h-2 rounded-full bg-emerald-600" />
                 </div>
                 <p className="text-xs font-semibold text-[#142419] truncate">
-                  {user?.name || 'Aline Resolve'}
+                  {user?.name || 'Aline Torres'}
                 </p>
                 <p className="text-[11px] text-[#1F3D2B]/70 truncate">
-                  {user?.email || 'luizfernandomoreirasena@gmail.com'}
+                  {user?.email || 'contato@alineresolve.com'}
                 </p>
               </div>
 
@@ -288,10 +288,10 @@ export const Layout: React.FC<LayoutProps> = () => {
               </span>
             </div>
             <div className="text-xs font-bold text-[#142419] truncate">
-              {user?.name || 'Aline Resolve'}
+              {user?.name || 'Aline Torres'}
             </div>
             <div className="text-[11px] text-[#1F3D2B]/70 truncate font-mono">
-              {user?.email || 'luizfernandomoreirasena@gmail.com'}
+              {user?.email || 'contato@alineresolve.com'}
             </div>
           </div>
 

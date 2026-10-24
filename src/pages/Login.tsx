@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
-import { AlertCircle, ArrowRight, ShieldCheck, Heart } from 'lucide-react'
+import { AlertCircle, ArrowRight } from 'lucide-react'
 import BrandLogo from '@/components/BrandLogo'
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState('luizfernandomoreirasena@gmail.com')
-  const [password, setPassword] = useState('Skip@Pass')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const { login } = useAuth()
@@ -106,29 +106,14 @@ const Login: React.FC = () => {
           </div>
         </form>
 
-        <div className="pt-4 border-t border-[#1F3D2B]/10 space-y-4 text-xs text-[#1F3D2B]/70">
-          <div className="text-center">
-            Não tem uma conta?{' '}
-            <Link
-              to="/signup"
-              className="font-semibold text-[#C4704F] hover:text-[#1F3D2B] underline"
-            >
-              Cadastre-se
-            </Link>
-          </div>
-
-          <div className="p-3 rounded-2xl bg-[#EEF3EE]/80 border border-[#1F3D2B]/15">
-            <div className="flex items-center gap-1.5 font-semibold text-[#1F3D2B] mb-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-700" />
-              <span>Acesso da Proprietária (Padrão):</span>
-            </div>
-            <p className="font-mono text-[11px] text-[#142419]">
-              E-mail: <strong className="text-[#1F3D2B]">luizfernandomoreirasena@gmail.com</strong>
-            </p>
-            <p className="font-mono text-[11px] text-[#142419]">
-              Senha: <strong className="text-[#1F3D2B]">Skip@Pass</strong>
-            </p>
-          </div>
+        <div className="pt-4 border-t border-[#1F3D2B]/10 text-center text-xs text-[#1F3D2B]/70">
+          Não tem uma conta?{' '}
+          <Link
+            to="/signup"
+            className="font-semibold text-[#C4704F] hover:text-[#1F3D2B] underline"
+          >
+            Cadastre-se
+          </Link>
         </div>
       </div>
     </div>
