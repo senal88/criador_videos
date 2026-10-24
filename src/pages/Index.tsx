@@ -15,8 +15,18 @@ import {
   Calendar,
   Clock,
   ExternalLink,
+  Layers,
+  Sparkles,
+  CheckCircle2,
+  Video,
 } from 'lucide-react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog'
 import { toast } from '@/hooks/use-toast'
 
 export const Index: React.FC = () => {
@@ -123,7 +133,7 @@ export const Index: React.FC = () => {
         (a, b) => new Date(a.data_programada).getTime() - new Date(b.data_programada).getTime(),
       )[0]
 
-    let proximaFormatada = 'SEM POSTAGENS'
+    let proximaFormatada = 'Sem postagens'
     if (proxima && proxima.data_programada) {
       const d = new Date(proxima.data_programada)
       const dias = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB']
@@ -217,37 +227,41 @@ export const Index: React.FC = () => {
     }
   }
 
-  // BADGE DE STATUS DO PROJETO
+  // BADGE DE STATUS DO PROJETO COM A NOVA IDENTIDADE
   const renderStatusBadge = (status: string) => {
     switch (status) {
       case 'Em gravação':
         return (
-          <span className="inline-block px-2.5 py-1 bg-[#F5D90A] text-black font-bold uppercase text-[11px] tracking-wider border border-black">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#F4EAE4] text-[#C4704F] font-semibold text-xs rounded-lg border border-[#C4704F]/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C4704F] animate-pulse" />
             Em gravação
           </span>
         )
       case 'Em edição':
         return (
-          <span className="inline-block px-2.5 py-1 bg-white text-black font-bold uppercase text-[11px] tracking-wider border-2 border-black">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#EEF3EE] text-[#1F3D2B] font-semibold text-xs rounded-lg border border-[#1F3D2B]/15">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#1F3D2B]" />
             Em edição
           </span>
         )
       case 'Pronto para revisão':
       case 'Pronto':
         return (
-          <span className="inline-block px-2.5 py-1 bg-black text-white font-bold uppercase text-[11px] tracking-wider border border-black">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#1F3D2B] text-[#FAF7F0] font-semibold text-xs rounded-lg">
+            <CheckCircle2 className="w-3 h-3 text-[#D98A6C]" />
             Pronto
           </span>
         )
       case 'Publicado':
         return (
-          <span className="inline-block px-2.5 py-1 bg-[#E6F4EA] text-[#1D6B3A] font-bold uppercase text-[11px] tracking-wider border border-[#1D6B3A]">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 text-emerald-800 font-semibold text-xs rounded-lg border border-emerald-200">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
             Publicado
           </span>
         )
       default:
         return (
-          <span className="inline-block px-2.5 py-1 bg-[#F4F4F4] text-black font-bold uppercase text-[11px] border border-black">
+          <span className="inline-block px-2.5 py-1 bg-white text-[#1F3D2B] font-medium text-xs rounded-lg border border-[#1F3D2B]/15">
             {status}
           </span>
         )
@@ -255,75 +269,77 @@ export const Index: React.FC = () => {
   }
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto">
+    <div className="space-y-8 max-w-7xl mx-auto pb-8">
       {/* 1. SEÇÃO: VISÃO GERAL */}
       <section>
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-6 h-6 bg-[#F5D90A] border-2 border-black flex items-center justify-center font-black text-xs">
+          <span className="w-6 h-6 rounded-lg bg-[#1F3D2B] text-white flex items-center justify-center font-serif font-bold text-xs">
             1
-          </div>
-          <h2 className="text-lg font-bold uppercase tracking-[0.02em] text-[#111]">VISÃO GERAL</h2>
+          </span>
+          <h2 className="text-lg font-serif font-bold text-[#1F3D2B]">Visão Geral da Produção</h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {/* Card 1: Projetos Ativos */}
-          <div className="bg-white border-2 border-black p-6 shadow-brutal-hover">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#555]">
-                Projetos Ativos
-              </span>
-              <div className="w-4 h-4 bg-[#F5D90A] border border-black" />
+          <div className="bg-[#FAF7F0] border border-[#1F3D2B]/15 rounded-2xl p-6 shadow-card hover:shadow-soft transition-all">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-semibold text-[#1F3D2B]/70">Projetos Ativos</span>
+              <div className="w-7 h-7 rounded-lg bg-[#EEF3EE] flex items-center justify-center text-[#1F3D2B]">
+                <Layers className="w-3.5 h-3.5" />
+              </div>
             </div>
             <div className="flex items-baseline gap-2">
-              <span className="text-5xl font-black text-[#111] leading-none">{stats.ativos}</span>
-              <span className="text-xs font-bold uppercase text-[#555]">em fluxo</span>
+              <span className="text-4xl font-serif font-bold text-[#1F3D2B] leading-none">
+                {stats.ativos}
+              </span>
+              <span className="text-xs font-medium text-[#1F3D2B]/60">em andamento</span>
             </div>
           </div>
 
           {/* Card 2: Postagens Esta Semana */}
-          <div className="bg-white border-2 border-black p-6 shadow-brutal-hover">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#555]">
-                Postagens esta semana
-              </span>
-              <Calendar className="w-4 h-4 text-[#111]" />
+          <div className="bg-[#FAF7F0] border border-[#1F3D2B]/15 rounded-2xl p-6 shadow-card hover:shadow-soft transition-all">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-semibold text-[#1F3D2B]/70">Postagens esta semana</span>
+              <div className="w-7 h-7 rounded-lg bg-[#F4EAE4] flex items-center justify-center text-[#C4704F]">
+                <Calendar className="w-3.5 h-3.5" />
+              </div>
             </div>
             <div className="flex items-baseline gap-2">
-              <span className="text-5xl font-black text-[#111] leading-none">
+              <span className="text-4xl font-serif font-bold text-[#1F3D2B] leading-none">
                 {stats.postagensSemana}
               </span>
-              <span className="text-xs font-bold uppercase text-[#1D6B3A]">
+              <span className="text-xs font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full">
                 +{stats.postagensConcluidas} concluídas
               </span>
             </div>
           </div>
 
           {/* Card 3: Próxima Postagem */}
-          <div className="bg-white border-2 border-black p-6 shadow-brutal-hover">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#555]">
-                Próxima postagem
-              </span>
-              <Clock className="w-4 h-4 text-[#111]" />
+          <div className="bg-[#FAF7F0] border border-[#1F3D2B]/15 rounded-2xl p-6 shadow-card hover:shadow-soft transition-all">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-semibold text-[#1F3D2B]/70">Próxima postagem</span>
+              <div className="w-7 h-7 rounded-lg bg-[#EEF3EE] flex items-center justify-center text-[#1F3D2B]">
+                <Clock className="w-3.5 h-3.5" />
+              </div>
             </div>
-            <div className="text-2xl lg:text-xl xl:text-2xl font-black text-[#111] leading-tight mt-1">
+            <div className="text-xl font-serif font-bold text-[#1F3D2B] leading-tight mt-1 truncate">
               {stats.proximaFormatada}
             </div>
-            <p className="text-[11px] font-bold uppercase text-[#555] mt-1">Instagram Reels</p>
+            <p className="text-[11px] font-medium text-[#C4704F] mt-1.5">Instagram Reels</p>
           </div>
 
           {/* Card 4: Tempo Médio de Edição */}
-          <div className="bg-white border-2 border-black p-6 shadow-brutal-hover">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#555]">
-                Tempo médio de edição
-              </span>
-              <div className="w-3 h-3 bg-black" />
+          <div className="bg-[#FAF7F0] border border-[#1F3D2B]/15 rounded-2xl p-6 shadow-card hover:shadow-soft transition-all">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-semibold text-[#1F3D2B]/70">Tempo médio de edição</span>
+              <div className="w-7 h-7 rounded-lg bg-[#EEF3EE] flex items-center justify-center text-[#1F3D2B]">
+                <Video className="w-3.5 h-3.5" />
+              </div>
             </div>
-            <div className="text-4xl font-black text-[#111] leading-none">{stats.tempoMedio}</div>
-            <p className="text-[11px] font-medium text-[#555] mt-2">
-              Baseado nos tutoriais concluídos
-            </p>
+            <div className="text-3xl font-serif font-bold text-[#1F3D2B] leading-none">
+              {stats.tempoMedio}
+            </div>
+            <p className="text-[11px] text-[#1F3D2B]/60 mt-2">Baseado nos tutoriais concluídos</p>
           </div>
         </div>
       </section>
@@ -332,97 +348,93 @@ export const Index: React.FC = () => {
       <section>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-[#F5D90A] border-2 border-black flex items-center justify-center font-black text-xs">
+            <span className="w-6 h-6 rounded-lg bg-[#1F3D2B] text-white flex items-center justify-center font-serif font-bold text-xs">
               2
-            </div>
-            <h2 className="text-lg font-bold uppercase tracking-[0.02em] text-[#111]">
-              STATUS DOS PROJETOS
+            </span>
+            <h2 className="text-lg font-serif font-bold text-[#1F3D2B]">
+              Status dos Projetos (Tutoriais)
             </h2>
           </div>
-          <span className="text-xs font-bold uppercase tracking-wider text-[#555]">
+          <span className="text-xs font-semibold text-[#1F3D2B]/60 bg-[#EEF3EE] px-2.5 py-1 rounded-full">
             {projetos.length} no total
           </span>
         </div>
 
-        <div className="border-2 border-black bg-white overflow-hidden shadow-brutal">
+        <div className="border border-[#1F3D2B]/15 bg-[#FAF7F0] rounded-2xl overflow-hidden shadow-card">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[700px]">
               <thead>
-                <tr className="bg-[#F4F4F4] border-b-2 border-black">
-                  <th className="py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#111]">
-                    Projeto
-                  </th>
-                  <th className="py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#111] w-36">
-                    Formato
-                  </th>
-                  <th className="py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#111] w-48">
+                <tr className="bg-[#EEF3EE]/80 border-b border-[#1F3D2B]/10">
+                  <th className="py-3.5 px-5 text-xs font-semibold text-[#1F3D2B]">Projeto</th>
+                  <th className="py-3.5 px-4 text-xs font-semibold text-[#1F3D2B] w-36">Formato</th>
+                  <th className="py-3.5 px-4 text-xs font-semibold text-[#1F3D2B] w-52">
                     Progresso
                   </th>
-                  <th className="py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#111] w-40">
-                    Status
-                  </th>
-                  <th className="py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#111] w-32">
+                  <th className="py-3.5 px-4 text-xs font-semibold text-[#1F3D2B] w-44">Status</th>
+                  <th className="py-3.5 px-4 text-xs font-semibold text-[#1F3D2B] w-32">
                     Postagem
                   </th>
-                  <th className="py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#111] w-24 text-right">
+                  <th className="py-3.5 px-5 text-xs font-semibold text-[#1F3D2B] w-24 text-right">
                     Ação
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y border-black">
+              <tbody className="divide-y divide-[#1F3D2B]/10">
                 {projetos.map((proj) => {
                   let dataFormatada = '-'
                   if (proj.data_postagem) {
                     const d = new Date(proj.data_postagem)
                     const meses = [
-                      'JAN',
-                      'FEV',
-                      'MAR',
-                      'ABR',
-                      'MAI',
-                      'JUN',
-                      'JUL',
-                      'AGO',
-                      'SET',
-                      'OUT',
-                      'NOV',
-                      'DEZ',
+                      'Jan',
+                      'Fev',
+                      'Mar',
+                      'Abr',
+                      'Mai',
+                      'Jun',
+                      'Jul',
+                      'Ago',
+                      'Set',
+                      'Out',
+                      'Nov',
+                      'Dez',
                     ]
                     dataFormatada = `${String(d.getUTCDate()).padStart(2, '0')} ${meses[d.getUTCMonth()]}`
                   }
 
                   return (
-                    <tr key={proj.id} className="hover:bg-[#FFFDE6]/60 transition-colors h-12">
-                      <td className="py-3 px-4 font-bold text-sm text-[#111]">{proj.nome}</td>
-                      <td className="py-3 px-4">
-                        <span className="inline-block px-2 py-0.5 bg-[#F4F4F4] border border-black text-[10px] font-bold uppercase tracking-wider">
+                    <tr key={proj.id} className="hover:bg-white/80 transition-colors h-14">
+                      <td className="py-3.5 px-5 font-semibold text-sm text-[#142419]">
+                        {proj.nome}
+                      </td>
+                      <td className="py-3.5 px-4">
+                        <span className="inline-block px-2.5 py-0.5 bg-white border border-[#1F3D2B]/15 rounded-md text-[11px] font-semibold text-[#1F3D2B]">
                           {proj.formato}
                         </span>
                       </td>
-                      <td className="py-3 px-4">
+                      <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
-                          <div className="flex-1 h-3.5 bg-black border border-black p-[1px]">
+                          <div className="flex-1 h-2.5 bg-[#EEF3EE] rounded-full overflow-hidden border border-[#1F3D2B]/10">
                             <div
-                              className="h-full bg-[#F5D90A] transition-all"
+                              className="h-full bg-[#C4704F] transition-all rounded-full"
                               style={{ width: `${proj.progresso || 0}%` }}
                             />
                           </div>
-                          <span className="text-xs font-bold font-mono text-[#111] w-9 text-right">
+                          <span className="text-xs font-semibold font-mono text-[#1F3D2B] w-9 text-right">
                             {proj.progresso || 0}%
                           </span>
                         </div>
                       </td>
-                      <td className="py-3 px-4">{renderStatusBadge(proj.status)}</td>
-                      <td className="py-3 px-4 text-xs font-bold font-mono text-[#555]">
+                      <td className="py-3.5 px-4">{renderStatusBadge(proj.status)}</td>
+                      <td className="py-3.5 px-4 text-xs font-semibold font-mono text-[#1F3D2B]/70">
                         {dataFormatada}
                       </td>
-                      <td className="py-3 px-4 text-right">
+                      <td className="py-3.5 px-5 text-right">
                         <button
                           onClick={() => navigate(`/edicao?projeto=${proj.id}`)}
-                          className="h-8 px-3 bg-white hover:bg-[#F5D90A] text-black border-2 border-black text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all ml-auto cursor-pointer"
+                          className="h-8 px-3 bg-white hover:bg-[#EEF3EE] text-[#1F3D2B] border border-[#1F3D2B]/20 rounded-xl text-xs font-semibold flex items-center gap-1 transition-all ml-auto cursor-pointer shadow-sm"
                         >
                           <span>Abrir</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
+                          <ArrowRight className="w-3.5 h-3.5 text-[#C4704F]" />
                         </button>
                       </td>
                     </tr>
@@ -430,9 +442,9 @@ export const Index: React.FC = () => {
                 })}
                 {projetos.length === 0 && !loading && (
                   <tr>
-                    <td colSpan={6} className="py-8 text-center text-sm text-[#555]">
-                      Nenhum projeto cadastrado. Utilize o atalho <strong>Ctrl+N</strong> para criar
-                      o primeiro.
+                    <td colSpan={6} className="py-8 text-center text-xs text-[#1F3D2B]/70">
+                      Nenhum projeto cadastrado. Utilize o botão "+ Novo Projeto" ou o atalho{' '}
+                      <strong>Ctrl+N</strong> para criar o primeiro.
                     </td>
                   </tr>
                 )}
@@ -446,19 +458,17 @@ export const Index: React.FC = () => {
       <section>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-[#F5D90A] border-2 border-black flex items-center justify-center font-black text-xs">
+            <span className="w-6 h-6 rounded-lg bg-[#1F3D2B] text-white flex items-center justify-center font-serif font-bold text-xs">
               3
-            </div>
-            <h2 className="text-lg font-bold uppercase tracking-[0.02em] text-[#111]">
-              CRONOGRAMA DE POSTAGENS
-            </h2>
+            </span>
+            <h2 className="text-lg font-serif font-bold text-[#1F3D2B]">Cronograma de Postagens</h2>
           </div>
-          <span className="text-xs font-bold uppercase tracking-wider text-[#555]">
+          <span className="text-xs font-semibold text-[#1F3D2B]/60 bg-[#EEF3EE] px-2.5 py-1 rounded-full">
             {postagensFiltradas.length} publicações programadas
           </span>
         </div>
 
-        {/* Scroll Horizontal de Cards */}
+        {/* Scroll Horizontal de Cards com visual acolhedor */}
         <div className="flex gap-4 overflow-x-auto pb-3 pt-1 scrollbar-thin">
           {postagensFiltradas.map((post) => {
             const d = new Date(post.data_programada)
@@ -479,54 +489,55 @@ export const Index: React.FC = () => {
             return (
               <div
                 key={post.id}
-                className={`min-w-[220px] w-[220px] shrink-0 border-2 border-black bg-white p-4 shadow-brutal-hover flex flex-col justify-between ${
-                  isHoje ? 'ring-2 ring-[#F5D90A]' : ''
+                className={`min-w-[220px] w-[220px] shrink-0 border rounded-2xl bg-[#FAF7F0] p-4 shadow-card hover:shadow-soft flex flex-col justify-between transition-all ${
+                  isHoje
+                    ? 'border-[#C4704F] ring-2 ring-[#C4704F]/30 bg-[#FFF9F6]'
+                    : 'border-[#1F3D2B]/15'
                 }`}
               >
                 <div>
                   {/* Topo: Dia da Semana + Indicador do Dia */}
                   <div className="flex items-center justify-between mb-2">
                     <span
-                      className={`px-2 py-0.5 text-xs font-extrabold uppercase tracking-wider border border-black ${
-                        isHoje ? 'bg-[#F5D90A] text-black' : 'bg-[#F4F4F4] text-black'
+                      className={`px-2.5 py-0.5 text-xs font-bold rounded-lg ${
+                        isHoje ? 'bg-[#C4704F] text-white' : 'bg-[#EEF3EE] text-[#1F3D2B]'
                       }`}
                     >
                       {diaSemana} {isHoje && '· HOJE'}
                     </span>
-                    {/* Indicador de turno: retângulo preto */}
-                    <div className="w-3 h-2 bg-black" title="Turno programado" />
+                    <span className="w-2 h-2 rounded-full bg-[#1F3D2B]/40" />
                   </div>
 
                   {/* Data Numérica Grande */}
-                  <div className="text-4xl font-black text-[#111] leading-none mb-3">
+                  <div className="text-4xl font-serif font-bold text-[#1F3D2B] leading-none mb-2">
                     {diaNumero}
                   </div>
 
                   {/* Horário */}
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-[#555] mb-2 font-mono">
-                    <Clock className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#1F3D2B]/70 mb-2 font-mono">
+                    <Clock className="w-3.5 h-3.5 text-[#C4704F]" />
                     <span>{post.horario || '10:00'}</span>
                   </div>
 
                   {/* Projeto e Formato */}
-                  <div className="border-t border-black/30 pt-2">
-                    <p className="text-xs font-bold text-[#111] line-clamp-2 leading-tight">
+                  <div className="border-t border-[#1F3D2B]/10 pt-2">
+                    <p className="text-xs font-semibold text-[#142419] line-clamp-2 leading-snug">
                       {projRelacionado ? projRelacionado.nome : 'Tutorial Instagram'}
                     </p>
-                    <span className="inline-block mt-1 text-[10px] font-bold uppercase tracking-wider text-[#555]">
+                    <span className="inline-block mt-1 text-[11px] font-medium text-[#C4704F]">
                       {post.plataforma}
                     </span>
                   </div>
                 </div>
 
-                <div className="mt-4 pt-2 border-t border-black/10 flex items-center justify-between">
-                  <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 bg-black text-white">
+                <div className="mt-4 pt-2.5 border-t border-[#1F3D2B]/10 flex items-center justify-between">
+                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 bg-[#1F3D2B] text-white rounded-md">
                     {post.status}
                   </span>
                   {projRelacionado && (
                     <button
                       onClick={() => navigate(`/edicao?projeto=${projRelacionado.id}`)}
-                      className="text-[11px] font-bold uppercase text-black hover:underline flex items-center gap-1"
+                      className="text-xs font-semibold text-[#1F3D2B] hover:text-[#C4704F] flex items-center gap-1 transition-colors"
                     >
                       <span>Editar</span>
                       <ExternalLink className="w-3 h-3" />
@@ -538,7 +549,7 @@ export const Index: React.FC = () => {
           })}
 
           {postagensFiltradas.length === 0 && (
-            <div className="w-full border-2 border-black bg-white p-6 text-center text-xs font-bold uppercase text-[#555]">
+            <div className="w-full border border-[#1F3D2B]/15 bg-[#FAF7F0] rounded-2xl p-6 text-center text-xs text-[#1F3D2B]/70">
               Nenhuma postagem agendada para o período selecionado.
             </div>
           )}
@@ -549,38 +560,40 @@ export const Index: React.FC = () => {
       <section>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-[#F5D90A] border-2 border-black flex items-center justify-center font-black text-xs">
+            <span className="w-6 h-6 rounded-lg bg-[#1F3D2B] text-white flex items-center justify-center font-serif font-bold text-xs">
               4
-            </div>
-            <h2 className="text-lg font-bold uppercase tracking-[0.02em] text-[#111]">
-              PRÓXIMOS PASSOS
+            </span>
+            <h2 className="text-lg font-serif font-bold text-[#1F3D2B]">
+              Próximos Passos & Tarefas
             </h2>
           </div>
-          <span className="text-xs font-bold uppercase tracking-wider text-[#555]">
+          <span className="text-xs font-semibold text-[#1F3D2B]/60 bg-[#EEF3EE] px-2.5 py-1 rounded-full">
             Checklist de produção
           </span>
         </div>
 
-        <div className="border-2 border-black bg-white p-5 shadow-brutal space-y-3">
+        <div className="border border-[#1F3D2B]/15 bg-[#FAF7F0] rounded-2xl p-5 shadow-card space-y-2.5">
           {tarefas.map((t) => (
             <div
               key={t.id}
               onClick={() => handleToggleTarefa(t)}
-              className="flex items-center gap-3 p-3 border-2 border-black bg-white hover:bg-[#F4F4F4] transition-colors cursor-pointer select-none group"
+              className="flex items-center gap-3 p-3.5 rounded-xl border border-[#1F3D2B]/10 bg-white hover:bg-[#EEF3EE]/50 transition-colors cursor-pointer select-none group shadow-sm"
             >
-              {/* Checkbox Brutalista com Pop */}
+              {/* Checkbox Acolhedor com Pop */}
               <div
-                className={`w-6 h-6 border-2 border-black flex items-center justify-center checkbox-pop shrink-0 ${
-                  t.concluida ? 'bg-[#F5D90A]' : 'bg-white group-hover:border-black'
+                className={`w-5 h-5 rounded-lg border flex items-center justify-center transition-all shrink-0 ${
+                  t.concluida
+                    ? 'bg-[#1F3D2B] border-[#1F3D2B] text-white'
+                    : 'bg-white border-[#1F3D2B]/30 group-hover:border-[#C4704F]'
                 }`}
               >
-                {t.concluida && <Check className="w-4 h-4 text-black stroke-[3]" />}
+                {t.concluida && <Check className="w-3.5 h-3.5 stroke-[3]" />}
               </div>
 
               {/* Texto com risco ao completar */}
               <span
-                className={`text-sm font-bold uppercase tracking-wide transition-all ${
-                  t.concluida ? 'line-through text-[#777]' : 'text-[#111]'
+                className={`text-sm font-medium transition-all ${
+                  t.concluida ? 'line-through text-[#1F3D2B]/40' : 'text-[#142419]'
                 }`}
               >
                 {t.descricao}
@@ -589,7 +602,7 @@ export const Index: React.FC = () => {
           ))}
 
           {tarefas.length === 0 && (
-            <p className="text-xs font-bold uppercase text-[#555] py-2">
+            <p className="text-xs text-[#1F3D2B]/70 py-2 text-center">
               Todas as tarefas concluídas. Bom trabalho!
             </p>
           )}
@@ -599,11 +612,11 @@ export const Index: React.FC = () => {
       {/* 5. SEÇÃO: ATALHOS RÁPIDOS */}
       <section>
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-6 h-6 bg-[#F5D90A] border-2 border-black flex items-center justify-center font-black text-xs">
+          <span className="w-6 h-6 rounded-lg bg-[#1F3D2B] text-white flex items-center justify-center font-serif font-bold text-xs">
             5
-          </div>
-          <h2 className="text-lg font-bold uppercase tracking-[0.02em] text-[#111]">
-            ATALHOS RÁPIDOS
+          </span>
+          <h2 className="text-lg font-serif font-bold text-[#1F3D2B]">
+            Atalhos de Teclado & Acesso Rápido
           </h2>
         </div>
 
@@ -611,104 +624,100 @@ export const Index: React.FC = () => {
           {/* 1. Novo corte */}
           <button
             onClick={() => navigate('/edicao?action=corte')}
-            className="p-5 border-2 border-black bg-white hover:bg-[#F5D90A] active:translate-y-[1px] text-left transition-all shadow-brutal flex flex-col justify-between h-32 group cursor-pointer"
+            className="p-5 border border-[#1F3D2B]/15 bg-[#FAF7F0] hover:bg-white active:scale-[0.99] rounded-2xl text-left transition-all shadow-card hover:shadow-soft flex flex-col justify-between h-32 group cursor-pointer"
           >
             <div className="flex items-center justify-between">
-              <Scissors className="w-5 h-5 text-black" />
-              <span className="text-[10px] font-bold font-mono uppercase bg-black text-white px-2 py-0.5">
+              <div className="w-8 h-8 rounded-xl bg-[#EEF3EE] flex items-center justify-center text-[#1F3D2B] group-hover:bg-[#1F3D2B] group-hover:text-white transition-colors">
+                <Scissors className="w-4 h-4" />
+              </div>
+              <span className="text-[10px] font-semibold font-mono bg-[#1F3D2B]/10 text-[#1F3D2B] px-2 py-0.5 rounded-md">
                 Ctrl+K
               </span>
             </div>
             <div>
-              <div className="font-extrabold uppercase text-sm tracking-wide text-black">
-                Novo corte
-              </div>
-              <p className="text-[11px] text-[#555] group-hover:text-black">
-                Gerar comando ffmpeg com marcações
-              </p>
+              <div className="font-serif font-bold text-sm text-[#142419]">Novo corte</div>
+              <p className="text-xs text-[#1F3D2B]/70 mt-0.5">Gerar comando ffmpeg com marcações</p>
             </div>
           </button>
 
           {/* 2. Ajuste de cor */}
           <button
             onClick={() => navigate('/edicao?action=cor')}
-            className="p-5 border-2 border-black bg-white hover:bg-[#F5D90A] active:translate-y-[1px] text-left transition-all shadow-brutal flex flex-col justify-between h-32 group cursor-pointer"
+            className="p-5 border border-[#1F3D2B]/15 bg-[#FAF7F0] hover:bg-white active:scale-[0.99] rounded-2xl text-left transition-all shadow-card hover:shadow-soft flex flex-col justify-between h-32 group cursor-pointer"
           >
             <div className="flex items-center justify-between">
-              <Palette className="w-5 h-5 text-black" />
-              <span className="text-[10px] font-bold font-mono uppercase bg-black text-white px-2 py-0.5">
+              <div className="w-8 h-8 rounded-xl bg-[#F4EAE4] flex items-center justify-center text-[#C4704F] group-hover:bg-[#C4704F] group-hover:text-white transition-colors">
+                <Palette className="w-4 h-4" />
+              </div>
+              <span className="text-[10px] font-semibold font-mono bg-[#1F3D2B]/10 text-[#1F3D2B] px-2 py-0.5 rounded-md">
                 Ctrl+Shift+C
               </span>
             </div>
             <div>
-              <div className="font-extrabold uppercase text-sm tracking-wide text-black">
-                Ajuste de cor
-              </div>
-              <p className="text-[11px] text-[#555] group-hover:text-black">
-                Presets prontos para tela escura
-              </p>
+              <div className="font-serif font-bold text-sm text-[#142419]">Ajuste de cor</div>
+              <p className="text-xs text-[#1F3D2B]/70 mt-0.5">Presets prontos para tela escura</p>
             </div>
           </button>
 
           {/* 3. Sincronizar agora */}
           <button
             onClick={() => navigate('/sincronizacao')}
-            className="p-5 border-2 border-black bg-white hover:bg-[#F5D90A] active:translate-y-[1px] text-left transition-all shadow-brutal flex flex-col justify-between h-32 group cursor-pointer"
+            className="p-5 border border-[#1F3D2B]/15 bg-[#FAF7F0] hover:bg-white active:scale-[0.99] rounded-2xl text-left transition-all shadow-card hover:shadow-soft flex flex-col justify-between h-32 group cursor-pointer"
           >
             <div className="flex items-center justify-between">
-              <RefreshCw className="w-5 h-5 text-black" />
-              <span className="text-[10px] font-bold font-mono uppercase bg-black text-white px-2 py-0.5">
+              <div className="w-8 h-8 rounded-xl bg-[#EEF3EE] flex items-center justify-center text-[#1F3D2B] group-hover:bg-[#1F3D2B] group-hover:text-white transition-colors">
+                <RefreshCw className="w-4 h-4" />
+              </div>
+              <span className="text-[10px] font-semibold font-mono bg-[#1F3D2B]/10 text-[#1F3D2B] px-2 py-0.5 rounded-md">
                 Ctrl+S
               </span>
             </div>
             <div>
-              <div className="font-extrabold uppercase text-sm tracking-wide text-black">
-                Sincronizar agora
-              </div>
-              <p className="text-[11px] text-[#555] group-hover:text-black">
-                Transferência S23 ↔ Windows
-              </p>
+              <div className="font-serif font-bold text-sm text-[#142419]">Sincronizar agora</div>
+              <p className="text-xs text-[#1F3D2B]/70 mt-0.5">Transferência S23 ↔ Windows</p>
             </div>
           </button>
 
           {/* 4. Novo projeto */}
           <button
             onClick={() => setNovoProjetoOpen(true)}
-            className="p-5 border-2 border-black bg-white hover:bg-[#F5D90A] active:translate-y-[1px] text-left transition-all shadow-brutal flex flex-col justify-between h-32 group cursor-pointer"
+            className="p-5 border border-[#1F3D2B]/15 bg-[#FAF7F0] hover:bg-white active:scale-[0.99] rounded-2xl text-left transition-all shadow-card hover:shadow-soft flex flex-col justify-between h-32 group cursor-pointer"
           >
             <div className="flex items-center justify-between">
-              <Plus className="w-5 h-5 text-black stroke-[3]" />
-              <span className="text-[10px] font-bold font-mono uppercase bg-black text-white px-2 py-0.5">
+              <div className="w-8 h-8 rounded-xl bg-[#C4704F] flex items-center justify-center text-white">
+                <Plus className="w-4 h-4 stroke-[3]" />
+              </div>
+              <span className="text-[10px] font-semibold font-mono bg-[#1F3D2B]/10 text-[#1F3D2B] px-2 py-0.5 rounded-md">
                 Ctrl+N
               </span>
             </div>
             <div>
-              <div className="font-extrabold uppercase text-sm tracking-wide text-black">
-                Novo projeto
-              </div>
-              <p className="text-[11px] text-[#555] group-hover:text-black">
-                Cadastrar novo tutorial no banco
-              </p>
+              <div className="font-serif font-bold text-sm text-[#142419]">Novo projeto</div>
+              <p className="text-xs text-[#1F3D2B]/70 mt-0.5">Cadastrar novo tutorial no banco</p>
             </div>
           </button>
         </div>
       </section>
 
-      {/* DIALOG DE CRIAÇÃO DE NOVO PROJETO */}
+      {/* DIALOG DE CRIAÇÃO DE NOVO PROJETO (Ctrl+N) */}
       <Dialog open={novoProjetoOpen} onOpenChange={setNovoProjetoOpen}>
-        <DialogContent className="border-2 border-black bg-white p-6 max-w-md rounded-none shadow-[6px_6px_0px_0px_#111]">
-          <DialogHeader className="border-b-2 border-black pb-3">
-            <DialogTitle className="text-lg font-bold uppercase tracking-wider flex items-center gap-2">
-              <span className="w-5 h-5 bg-[#F5D90A] border border-black flex items-center justify-center text-xs font-black">
+        <DialogContent className="border border-[#1F3D2B]/20 bg-[#FAF7F0] p-6 max-w-md rounded-2xl shadow-soft-lg">
+          <DialogHeader className="border-b border-[#1F3D2B]/10 pb-3">
+            <DialogTitle className="text-lg font-serif font-bold text-[#1F3D2B] flex items-center gap-2">
+              <span className="w-7 h-7 bg-[#C4704F] text-white rounded-lg flex items-center justify-center text-xs font-bold">
                 +
               </span>
               <span>Cadastrar Novo Projeto (Ctrl+N)</span>
             </DialogTitle>
+            <DialogDescription className="text-xs text-[#1F3D2B]/70">
+              Crie um novo tutorial com padrão de nomenclatura TUT-XXX para organização da Aline
+              Resolve.
+            </DialogDescription>
           </DialogHeader>
 
           <form onSubmit={handleCreateProjeto} className="space-y-4 pt-2">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider mb-1">
+              <label className="block text-xs font-semibold text-[#1F3D2B] mb-1">
                 Nome do Projeto (Padrão TUT-XXX)
               </label>
               <input
@@ -717,20 +726,22 @@ export const Index: React.FC = () => {
                 placeholder="Ex: TUT-005 — Como limpar o histórico"
                 value={novoNome}
                 onChange={(e) => setNovoNome(e.target.value)}
-                className="w-full h-11 px-3 border-2 border-black bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#F5D90A]"
+                className="w-full h-11 px-3 border border-[#1F3D2B]/20 rounded-xl bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#C4704F]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider mb-1">
+              <label className="block text-xs font-semibold text-[#1F3D2B] mb-1">
                 Formato do Vídeo
               </label>
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={() => setNovoFormato('REELS 9:16')}
-                  className={`h-10 text-xs font-bold uppercase border-2 border-black ${
-                    novoFormato === 'REELS 9:16' ? 'bg-[#F5D90A] text-black' : 'bg-white text-black'
+                  className={`h-11 text-xs font-semibold rounded-xl border transition-all ${
+                    novoFormato === 'REELS 9:16'
+                      ? 'bg-[#1F3D2B] text-white border-[#1F3D2B] shadow-card'
+                      : 'bg-white text-[#1F3D2B] border-[#1F3D2B]/20 hover:bg-[#EEF3EE]'
                   }`}
                 >
                   REELS 9:16
@@ -738,10 +749,10 @@ export const Index: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setNovoFormato('YOUTUBE 16:9')}
-                  className={`h-10 text-xs font-bold uppercase border-2 border-black ${
+                  className={`h-11 text-xs font-semibold rounded-xl border transition-all ${
                     novoFormato === 'YOUTUBE 16:9'
-                      ? 'bg-[#F5D90A] text-black'
-                      : 'bg-white text-black'
+                      ? 'bg-[#1F3D2B] text-white border-[#1F3D2B] shadow-card'
+                      : 'bg-white text-[#1F3D2B] border-[#1F3D2B]/20 hover:bg-[#EEF3EE]'
                   }`}
                 >
                   YOUTUBE 16:9
@@ -749,18 +760,18 @@ export const Index: React.FC = () => {
               </div>
             </div>
 
-            <div className="pt-4 border-t-2 border-black flex gap-3">
+            <div className="pt-4 border-t border-[#1F3D2B]/10 flex gap-3">
               <button
                 type="button"
                 onClick={() => setNovoProjetoOpen(false)}
-                className="flex-1 h-11 border-2 border-black bg-white font-bold uppercase text-xs hover:bg-[#F4F4F4]"
+                className="flex-1 h-11 border border-[#1F3D2B]/20 rounded-xl bg-white font-semibold text-xs text-[#1F3D2B] hover:bg-[#EEF3EE]"
               >
                 Cancelar
               </button>
               <button
                 type="submit"
                 disabled={isCreatingProj}
-                className="flex-1 h-11 border-2 border-black bg-[#F5D90A] font-bold uppercase text-xs hover:bg-[#ffe31a] disabled:opacity-50"
+                className="flex-1 h-11 rounded-xl bg-[#C4704F] hover:bg-[#D98A6C] text-white font-semibold text-xs transition-colors shadow-card disabled:opacity-50"
               >
                 {isCreatingProj ? 'Criando...' : 'Criar e Abrir Edição'}
               </button>

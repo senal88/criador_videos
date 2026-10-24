@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import pb from '@/lib/pocketbase/client'
-import { Play, AlertCircle, CheckCircle } from 'lucide-react'
+import BrandLogo from '@/components/BrandLogo'
+import { AlertCircle, CheckCircle2 } from 'lucide-react'
 
 const ConfirmEmailChange: React.FC = () => {
   const [searchParams] = useSearchParams()
@@ -28,37 +29,29 @@ const ConfirmEmailChange: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#F4F4F4] flex flex-col justify-center items-center p-4">
-      <div className="w-full max-w-md bg-white border-2 border-black p-8 shadow-[4px_4px_0px_0px_#111]">
-        <div className="flex items-center gap-3 mb-6 border-b-2 border-black pb-4">
-          <div className="w-10 h-10 bg-[#F5D90A] border-2 border-black flex items-center justify-center">
-            <Play className="w-5 h-5 fill-black text-black" />
-          </div>
-          <div>
-            <h1 className="text-xl font-bold uppercase tracking-wider text-[#111]">
-              ALINE RESOLVE
-            </h1>
-            <p className="text-xs uppercase tracking-widest text-[#555] font-medium">
-              PRODUÇÃO DE VÍDEOS · INSTAGRAM
-            </p>
-          </div>
+    <div className="min-h-screen bg-[#F7F2E9] flex flex-col justify-center items-center p-4">
+      <div className="w-full max-w-md bg-[#FAF7F0] border border-[#1F3D2B]/15 rounded-2xl p-8 shadow-soft">
+        <div className="flex justify-center mb-6 border-b border-[#1F3D2B]/10 pb-4">
+          <BrandLogo size="md" />
         </div>
 
-        <h2 className="text-2xl font-bold uppercase tracking-tight text-[#111] mb-2">
-          ALTERAÇÃO DE E-MAIL
+        <h2 className="text-xl font-serif font-bold text-[#1F3D2B] mb-2 text-center">
+          Alteração de E-mail
         </h2>
-        <p className="text-sm text-[#555] mb-6">Confirme sua senha para validar o novo endereço.</p>
+        <p className="text-xs text-[#1F3D2B]/70 mb-6 text-center">
+          Confirme sua senha para validar o novo endereço de e-mail.
+        </p>
 
         {status === 'success' && (
           <div className="space-y-4">
-            <div className="p-4 bg-[#E6F4EA] border-2 border-[#1D6B3A] text-[#1D6B3A] flex items-center gap-2">
-              <CheckCircle className="w-6 h-6 shrink-0" />
-              <span className="font-bold text-sm uppercase">E-mail alterado com sucesso!</span>
+            <div className="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5 shrink-0 text-emerald-600" />
+              <span className="font-semibold text-xs">E-mail alterado com sucesso!</span>
             </div>
             <div className="pt-2">
               <Link
                 to="/login"
-                className="w-full h-11 bg-[#F5D90A] text-black font-bold uppercase tracking-wider text-sm border-2 border-black flex items-center justify-center hover:bg-[#ffe31a]"
+                className="w-full h-11 bg-[#C4704F] hover:bg-[#D98A6C] text-white font-semibold text-xs rounded-xl shadow-card flex items-center justify-center transition-all"
               >
                 Fazer login com o novo e-mail
               </Link>
@@ -68,15 +61,15 @@ const ConfirmEmailChange: React.FC = () => {
 
         {status === 'error' && (
           <div className="space-y-4">
-            <div className="p-4 bg-[#FDE8E8] border-2 border-[#9B1C1C] text-[#9B1C1C] flex items-center gap-2">
-              <AlertCircle className="w-6 h-6 shrink-0" />
-              <span className="font-bold text-sm uppercase">Erro na confirmação</span>
+            <div className="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-xl flex items-center gap-2">
+              <AlertCircle className="w-5 h-5 shrink-0 text-rose-600" />
+              <span className="font-semibold text-xs">Erro na confirmação</span>
             </div>
-            <p className="text-xs text-[#555]">{errorMessage}</p>
+            <p className="text-xs text-[#1F3D2B]/75 leading-relaxed">{errorMessage}</p>
             <div className="pt-2">
               <Link
                 to="/login"
-                className="w-full h-11 bg-black text-white font-bold uppercase tracking-wider text-sm border-2 border-black flex items-center justify-center hover:bg-[#333]"
+                className="w-full h-11 bg-[#1F3D2B] hover:bg-[#2E583E] text-white font-semibold text-xs rounded-xl shadow-card flex items-center justify-center transition-all"
               >
                 Voltar ao Login
               </Link>
@@ -87,7 +80,7 @@ const ConfirmEmailChange: React.FC = () => {
         {status !== 'success' && status !== 'error' && (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#111] mb-1">
+              <label className="block text-xs font-semibold text-[#1F3D2B] mb-1">
                 Sua senha atual
               </label>
               <input
@@ -95,7 +88,7 @@ const ConfirmEmailChange: React.FC = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full h-11 px-3 border-2 border-black bg-white text-[#111] text-sm focus:outline-none focus:ring-2 focus:ring-[#F5D90A] focus:border-black rounded-none"
+                className="w-full h-11 px-3 border border-[#1F3D2B]/20 rounded-xl bg-white text-[#142419] text-sm focus:outline-none focus:ring-2 focus:ring-[#C4704F]"
                 placeholder="••••••••"
               />
             </div>
@@ -104,9 +97,9 @@ const ConfirmEmailChange: React.FC = () => {
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="w-full h-12 bg-[#F5D90A] hover:bg-[#ffe31a] text-black font-bold uppercase tracking-wider text-sm border-2 border-black transition-all flex items-center justify-center cursor-pointer disabled:opacity-50"
+                className="w-full h-11 bg-[#C4704F] hover:bg-[#D98A6C] text-white font-semibold text-xs rounded-xl shadow-card transition-all flex items-center justify-center cursor-pointer disabled:opacity-50"
               >
-                {status === 'loading' ? 'CONFIRMANDO...' : 'CONFIRMAR NOVO E-MAIL'}
+                {status === 'loading' ? 'Confirmando...' : 'Confirmar Novo E-mail'}
               </button>
             </div>
           </form>

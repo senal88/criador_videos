@@ -55,6 +55,7 @@ export interface BibliotecaMidiaRecord extends RecordModel {
   descricao?: string
   duracao?: string
   url?: string
+  tags?: string
   favorito?: boolean
   arquivo?: string
   owner: string

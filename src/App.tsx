@@ -8,6 +8,7 @@ import Layout from '@/components/Layout'
 
 // Páginas Autenticadas
 import Index from '@/pages/Index'
+import Biblioteca from '@/pages/Biblioteca'
 import Edicao from '@/pages/Edicao'
 import Sincronizacao from '@/pages/Sincronizacao'
 
@@ -35,7 +36,7 @@ const App = () => (
           <Route path="/verify-email" element={<VerifyEmail />} />
           <Route path="/confirm-email-change" element={<ConfirmEmailChange />} />
 
-          {/* Rotas Protegidas sob Layout Minimal Brutalism */}
+          {/* Rotas Protegidas sob Layout Aline Resolve */}
           <Route
             element={
               <ProtectedRoute>
@@ -44,6 +45,7 @@ const App = () => (
             }
           >
             <Route path="/" element={<Index />} />
+            <Route path="/biblioteca" element={<Biblioteca />} />
             <Route path="/edicao" element={<Edicao />} />
             <Route path="/sincronizacao" element={<Sincronizacao />} />
           </Route>

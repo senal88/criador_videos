@@ -13,6 +13,8 @@ import {
   Terminal,
   Clock,
   Sparkles,
+  Sliders,
+  CheckCircle2,
 } from 'lucide-react'
 import { toast } from '@/hooks/use-toast'
 
@@ -191,17 +193,18 @@ export const Edicao: React.FC = () => {
     'ffmpeg -i entrada.mp4 -vf "colortemperature=temperature=6500" -c:a copy tom_quente.mp4'
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto">
+    <div className="space-y-8 max-w-7xl mx-auto pb-10">
       {/* SELETOR DE PROJETO NO TOPO */}
-      <div className="bg-white border-2 border-black p-5 shadow-brutal flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+      <div className="bg-[#FAF7F0] border border-[#1F3D2B]/15 rounded-2xl p-5 shadow-card flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
         <div className="flex-1">
-          <label className="block text-xs font-bold uppercase tracking-wider text-[#555] mb-1">
-            Projeto Ativo para Edição
+          <label className="block text-xs font-semibold text-[#1F3D2B]/70 mb-1.5 flex items-center gap-1.5">
+            <Sliders className="w-3.5 h-3.5 text-[#C4704F]" />
+            <span>Projeto Ativo para Edição</span>
           </label>
           <select
             value={selectedProjetoId}
             onChange={(e) => handleSelectProjeto(e.target.value)}
-            className="w-full h-11 px-3 border-2 border-black bg-white text-[#111] font-bold text-sm uppercase focus:outline-none focus:ring-2 focus:ring-[#F5D90A]"
+            className="w-full h-11 px-3 border border-[#1F3D2B]/20 rounded-xl bg-white text-[#142419] font-medium text-sm focus:outline-none focus:ring-2 focus:ring-[#C4704F]"
           >
             {projetos.map((p) => (
               <option key={p.id} value={p.id}>
@@ -212,15 +215,15 @@ export const Edicao: React.FC = () => {
         </div>
 
         {selectedProjeto && (
-          <div className="flex flex-wrap items-center gap-3 border-t md:border-t-0 md:border-l-2 border-black pt-3 md:pt-0 md:pl-5">
+          <div className="flex flex-wrap items-center gap-3 border-t md:border-t-0 md:border-l border-[#1F3D2B]/10 pt-3 md:pt-0 md:pl-5">
             <div>
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#555] mb-1">
+              <label className="block text-[11px] font-semibold text-[#1F3D2B]/70 mb-1">
                 Status
               </label>
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as StatusProjeto)}
-                className="h-10 px-2 border-2 border-black bg-white text-xs font-bold uppercase focus:outline-none"
+                className="h-10 px-3 border border-[#1F3D2B]/20 rounded-xl bg-white text-xs font-semibold text-[#1F3D2B] focus:outline-none focus:ring-2 focus:ring-[#C4704F]"
               >
                 <option value="Em gravação">Em gravação</option>
                 <option value="Em edição">Em edição</option>
@@ -230,26 +233,28 @@ export const Edicao: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-[#555] mb-1">
+              <label className="block text-[11px] font-semibold text-[#1F3D2B]/70 mb-1">
                 Progresso ({progresso}%)
               </label>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={progresso}
-                onChange={(e) => setProgresso(Number(e.target.value))}
-                className="w-28 h-2 bg-black accent-[#F5D90A] cursor-pointer"
-              />
+              <div className="flex items-center gap-2">
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={progresso}
+                  onChange={(e) => setProgresso(Number(e.target.value))}
+                  className="w-28 h-2 bg-[#EEF3EE] rounded-lg accent-[#C4704F] cursor-pointer"
+                />
+              </div>
             </div>
 
             <button
               onClick={handleSalvarProjeto}
               disabled={isSaving}
-              className="h-10 px-4 bg-[#F5D90A] hover:bg-[#ffe31a] text-black border-2 border-black text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer self-end disabled:opacity-50"
+              className="h-10 px-4 bg-[#C4704F] hover:bg-[#D98A6C] text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shadow-card hover:shadow-soft cursor-pointer self-end disabled:opacity-50"
             >
               <Save className="w-4 h-4" />
-              <span>{isSaving ? 'Salvando...' : 'Salvar'}</span>
+              <span>{isSaving ? 'Salvando...' : 'Salvar Alterações'}</span>
             </button>
           </div>
         )}
@@ -258,50 +263,50 @@ export const Edicao: React.FC = () => {
       {/* 1. SEÇÃO: CORTES RÁPIDOS */}
       <div ref={cortesRef}>
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-6 h-6 bg-[#F5D90A] border-2 border-black flex items-center justify-center font-black text-xs">
+          <span className="w-6 h-6 rounded-lg bg-[#1F3D2B] text-white flex items-center justify-center font-serif font-bold text-xs">
             1
-          </div>
-          <h2 className="text-lg font-bold uppercase tracking-[0.02em] text-[#111] flex items-center gap-2">
-            <Scissors className="w-5 h-5" />
-            <span>CORTES RÁPIDOS (FFMPEG)</span>
+          </span>
+          <h2 className="text-lg font-serif font-bold text-[#1F3D2B] flex items-center gap-2">
+            <Scissors className="w-5 h-5 text-[#C4704F]" />
+            <span>Cortes Rápidos e Precisos (FFmpeg)</span>
           </h2>
         </div>
 
-        <div className="border-2 border-black bg-white p-6 shadow-brutal space-y-6">
+        <div className="border border-[#1F3D2B]/15 bg-[#FAF7F0] rounded-2xl p-6 shadow-card space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#111] mb-1 flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5" />
-                <span>Início (segundos)</span>
+              <label className="block text-xs font-semibold text-[#1F3D2B] mb-1.5 flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-[#C4704F]" />
+                <span>Início do Corte (segundos)</span>
               </label>
               <input
                 type="number"
                 min="0"
                 value={inicioSeg}
                 onChange={(e) => setInicioSeg(e.target.value)}
-                className="w-full h-11 px-3 border-2 border-black bg-white font-mono text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#F5D90A]"
+                className="w-full h-11 px-3 border border-[#1F3D2B]/20 rounded-xl bg-white font-mono text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#C4704F]"
                 placeholder="Ex: 3"
               />
-              <span className="text-[11px] font-mono text-[#555] mt-1 block">
-                Equivale a: {formatSecondsToTime(inicioSeg)}
+              <span className="text-[11px] font-mono text-[#1F3D2B]/60 mt-1 block">
+                Tempo formatado: {formatSecondsToTime(inicioSeg)}
               </span>
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#111] mb-1 flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5" />
-                <span>Fim (segundos)</span>
+              <label className="block text-xs font-semibold text-[#1F3D2B] mb-1.5 flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-[#C4704F]" />
+                <span>Fim do Corte (segundos)</span>
               </label>
               <input
                 type="number"
                 min="0"
                 value={fimSeg}
                 onChange={(e) => setFimSeg(e.target.value)}
-                className="w-full h-11 px-3 border-2 border-black bg-white font-mono text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#F5D90A]"
+                className="w-full h-11 px-3 border border-[#1F3D2B]/20 rounded-xl bg-white font-mono text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#C4704F]"
                 placeholder="Ex: 45"
               />
-              <span className="text-[11px] font-mono text-[#555] mt-1 block">
-                Equivale a: {formatSecondsToTime(fimSeg)}
+              <span className="text-[11px] font-mono text-[#1F3D2B]/60 mt-1 block">
+                Tempo formatado: {formatSecondsToTime(fimSeg)}
               </span>
             </div>
           </div>
@@ -309,65 +314,65 @@ export const Edicao: React.FC = () => {
           {/* Terminal / Bloco de Código de Corte */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#111] flex items-center gap-1.5">
-                <Terminal className="w-4 h-4" />
-                <span>Comando ffmpeg gerado em tempo real:</span>
+              <span className="text-xs font-semibold text-[#1F3D2B] flex items-center gap-1.5">
+                <Terminal className="w-4 h-4 text-[#C4704F]" />
+                <span>Comando FFmpeg gerado em tempo real:</span>
               </span>
               <button
                 type="button"
                 onClick={() => copyToClipboard(ffmpegCorteCmd, setCopiadoCorte)}
-                className={`h-9 px-3 border-2 border-black text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer ${
+                className={`h-9 px-3.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all border cursor-pointer ${
                   copiadoCorte
-                    ? 'bg-[#E6F4EA] text-[#1D6B3A] border-[#1D6B3A]'
-                    : 'bg-white hover:bg-[#F5D90A] text-black'
+                    ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                    : 'bg-white hover:bg-[#EEF3EE] text-[#1F3D2B] border-[#1F3D2B]/20 shadow-sm'
                 }`}
               >
                 {copiadoCorte ? (
                   <>
-                    <Check className="w-3.5 h-3.5" />
+                    <Check className="w-3.5 h-3.5 text-emerald-600" />
                     <span>Copiado!</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5" />
+                    <Copy className="w-3.5 h-3.5 text-[#C4704F]" />
                     <span>Copiar comando</span>
                   </>
                 )}
               </button>
             </div>
 
-            <div className="bg-[#111111] text-[#7FE08B] p-4 border-2 border-black overflow-x-auto font-mono text-xs select-all">
+            <div className="bg-[#142419] text-[#FAF7F0] p-4 rounded-xl border border-[#1F3D2B]/20 overflow-x-auto font-mono text-xs select-all leading-relaxed">
               <code>{ffmpegCorteCmd}</code>
             </div>
           </div>
 
           {/* Botão de conversão de bruto */}
-          <div className="pt-4 border-t-2 border-black flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <div className="pt-4 border-t border-[#1F3D2B]/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             <div>
-              <p className="text-xs font-bold uppercase text-[#111]">
+              <p className="text-xs font-bold text-[#142419]">
                 Ajustar bruto do S23 (1080×1920 a 30 fps)
               </p>
-              <p className="text-[11px] text-[#555]">
-                Remove o topo com a barra de status do celular e padroniza para 30 fps.
+              <p className="text-[11px] text-[#1F3D2B]/70">
+                Remove o topo com a barra de status do celular e padroniza para 30 fps sem perda.
               </p>
             </div>
             <button
               type="button"
               onClick={() => copyToClipboard(ffmpegConversaoCmd, setCopiadoConversao)}
-              className={`h-10 px-4 border-2 border-black text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer shrink-0 ${
+              className={`h-10 px-4 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer shrink-0 border ${
                 copiadoConversao
-                  ? 'bg-[#E6F4EA] text-[#1D6B3A] border-[#1D6B3A]'
-                  : 'bg-black text-white hover:bg-[#333]'
+                  ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                  : 'bg-[#1F3D2B] hover:bg-[#2E583E] text-white border-[#1F3D2B] shadow-card'
               }`}
             >
               {copiadoConversao ? (
                 <>
-                  <Check className="w-4 h-4" />
+                  <Check className="w-4 h-4 text-emerald-400" />
                   <span>Copiado!</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-4 h-4" />
+                  <Copy className="w-4 h-4 text-[#D98A6C]" />
                   <span>Copiar comando de conversão</span>
                 </>
               )}
@@ -379,29 +384,29 @@ export const Edicao: React.FC = () => {
       {/* 2. SEÇÃO: AJUSTES DE COR */}
       <div ref={corRef}>
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-6 h-6 bg-[#F5D90A] border-2 border-black flex items-center justify-center font-black text-xs">
+          <span className="w-6 h-6 rounded-lg bg-[#1F3D2B] text-white flex items-center justify-center font-serif font-bold text-xs">
             2
-          </div>
-          <h2 className="text-lg font-bold uppercase tracking-[0.02em] text-[#111] flex items-center gap-2">
-            <Palette className="w-5 h-5" />
-            <span>AJUSTES DE COR (PRESETS FFMPEG)</span>
+          </span>
+          <h2 className="text-lg font-serif font-bold text-[#1F3D2B] flex items-center gap-2">
+            <Palette className="w-5 h-5 text-[#C4704F]" />
+            <span>Ajustes de Cor e Harmonia (Presets FFmpeg)</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {/* Card 1: Correção de branco */}
-          <div className="border-2 border-black bg-white p-5 shadow-brutal flex flex-col justify-between">
+          <div className="border border-[#1F3D2B]/15 bg-[#FAF7F0] rounded-2xl p-5 shadow-card hover:shadow-soft transition-all flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <h3 className="font-extrabold uppercase text-sm text-[#111]">Correção de branco</h3>
-                <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 bg-[#F4F4F4] border border-black">
+                <h3 className="font-serif font-bold text-sm text-[#142419]">Correção de branco</h3>
+                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 bg-[#EEF3EE] rounded-md text-[#1F3D2B] border border-[#1F3D2B]/10">
                   colorbalance
                 </span>
               </div>
-              <p className="text-xs text-[#555] mb-3">
+              <p className="text-xs text-[#1F3D2B]/75 mb-3 leading-relaxed">
                 Equilibra tons azulados da iluminação artificial e neutraliza a tela do celular.
               </p>
-              <div className="bg-[#111111] text-[#7FE08B] p-3 border border-black font-mono text-[11px] overflow-x-auto mb-4 select-all">
+              <div className="bg-[#142419] text-[#FAF7F0] p-3 rounded-xl border border-[#1F3D2B]/20 font-mono text-[11px] overflow-x-auto mb-4 select-all">
                 <code>{cmdCor1}</code>
               </div>
             </div>
@@ -409,20 +414,20 @@ export const Edicao: React.FC = () => {
             <button
               type="button"
               onClick={() => copyToClipboard(cmdCor1, setCopiadoCor1)}
-              className={`w-full h-10 border-2 border-black text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
+              className={`w-full h-10 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
                 copiadoCor1
-                  ? 'bg-[#E6F4EA] text-[#1D6B3A] border-[#1D6B3A]'
-                  : 'bg-white hover:bg-[#F5D90A] text-black'
+                  ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                  : 'bg-white hover:bg-[#EEF3EE] text-[#1F3D2B] border-[#1F3D2B]/20 shadow-sm'
               }`}
             >
               {copiadoCor1 ? (
                 <>
-                  <Check className="w-3.5 h-3.5" />
+                  <Check className="w-3.5 h-3.5 text-emerald-600" />
                   <span>Copiado!</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-3.5 h-3.5" />
+                  <Copy className="w-3.5 h-3.5 text-[#C4704F]" />
                   <span>Copiar comando</span>
                 </>
               )}
@@ -430,18 +435,18 @@ export const Edicao: React.FC = () => {
           </div>
 
           {/* Card 2: Aumentar contraste */}
-          <div className="border-2 border-black bg-white p-5 shadow-brutal flex flex-col justify-between">
+          <div className="border border-[#1F3D2B]/15 bg-[#FAF7F0] rounded-2xl p-5 shadow-card hover:shadow-soft transition-all flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <h3 className="font-extrabold uppercase text-sm text-[#111]">Aumentar contraste</h3>
-                <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 bg-[#F4F4F4] border border-black">
+                <h3 className="font-serif font-bold text-sm text-[#142419]">Aumentar contraste</h3>
+                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 bg-[#EEF3EE] rounded-md text-[#1F3D2B] border border-[#1F3D2B]/10">
                   eq=contrast=1.2
                 </span>
               </div>
-              <p className="text-xs text-[#555] mb-3">
+              <p className="text-xs text-[#1F3D2B]/75 mb-3 leading-relaxed">
                 Eleva a separação entre texto e fundo, essencial para telas com modo escuro ativado.
               </p>
-              <div className="bg-[#111111] text-[#7FE08B] p-3 border border-black font-mono text-[11px] overflow-x-auto mb-4 select-all">
+              <div className="bg-[#142419] text-[#FAF7F0] p-3 rounded-xl border border-[#1F3D2B]/20 font-mono text-[11px] overflow-x-auto mb-4 select-all">
                 <code>{cmdCor2}</code>
               </div>
             </div>
@@ -449,20 +454,20 @@ export const Edicao: React.FC = () => {
             <button
               type="button"
               onClick={() => copyToClipboard(cmdCor2, setCopiadoCor2)}
-              className={`w-full h-10 border-2 border-black text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
+              className={`w-full h-10 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
                 copiadoCor2
-                  ? 'bg-[#E6F4EA] text-[#1D6B3A] border-[#1D6B3A]'
-                  : 'bg-white hover:bg-[#F5D90A] text-black'
+                  ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                  : 'bg-white hover:bg-[#EEF3EE] text-[#1F3D2B] border-[#1F3D2B]/20 shadow-sm'
               }`}
             >
               {copiadoCor2 ? (
                 <>
-                  <Check className="w-3.5 h-3.5" />
+                  <Check className="w-3.5 h-3.5 text-emerald-600" />
                   <span>Copiado!</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-3.5 h-3.5" />
+                  <Copy className="w-3.5 h-3.5 text-[#C4704F]" />
                   <span>Copiar comando</span>
                 </>
               )}
@@ -470,20 +475,20 @@ export const Edicao: React.FC = () => {
           </div>
 
           {/* Card 3: Tom quente */}
-          <div className="border-2 border-black bg-white p-5 shadow-brutal flex flex-col justify-between">
+          <div className="border border-[#1F3D2B]/15 bg-[#FAF7F0] rounded-2xl p-5 shadow-card hover:shadow-soft transition-all flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <h3 className="font-extrabold uppercase text-sm text-[#111]">
-                  Vídeo com calor (tom quente)
+                <h3 className="font-serif font-bold text-sm text-[#142419]">
+                  Vídeo com calor (tom acolhedor)
                 </h3>
-                <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 bg-[#F4F4F4] border border-black">
-                  colortemperature=6500
+                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 bg-[#F4EAE4] rounded-md text-[#C4704F] border border-[#C4704F]/20">
+                  temperature=6500
                 </span>
               </div>
-              <p className="text-xs text-[#555] mb-3">
+              <p className="text-xs text-[#1F3D2B]/75 mb-3 leading-relaxed">
                 Adiciona temperatura acolhedora para tutoriais humanizados com narração amigável.
               </p>
-              <div className="bg-[#111111] text-[#7FE08B] p-3 border border-black font-mono text-[11px] overflow-x-auto mb-4 select-all">
+              <div className="bg-[#142419] text-[#FAF7F0] p-3 rounded-xl border border-[#1F3D2B]/20 font-mono text-[11px] overflow-x-auto mb-4 select-all">
                 <code>{cmdCor3}</code>
               </div>
             </div>
@@ -491,20 +496,20 @@ export const Edicao: React.FC = () => {
             <button
               type="button"
               onClick={() => copyToClipboard(cmdCor3, setCopiadoCor3)}
-              className={`w-full h-10 border-2 border-black text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
+              className={`w-full h-10 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
                 copiadoCor3
-                  ? 'bg-[#E6F4EA] text-[#1D6B3A] border-[#1D6B3A]'
-                  : 'bg-white hover:bg-[#F5D90A] text-black'
+                  ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                  : 'bg-white hover:bg-[#EEF3EE] text-[#1F3D2B] border-[#1F3D2B]/20 shadow-sm'
               }`}
             >
               {copiadoCor3 ? (
                 <>
-                  <Check className="w-3.5 h-3.5" />
+                  <Check className="w-3.5 h-3.5 text-emerald-600" />
                   <span>Copiado!</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-3.5 h-3.5" />
+                  <Copy className="w-3.5 h-3.5 text-[#C4704F]" />
                   <span>Copiar comando</span>
                 </>
               )}
@@ -516,49 +521,49 @@ export const Edicao: React.FC = () => {
       {/* 3. SEÇÃO: CONVERSÃO PARA REELS */}
       <section>
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-6 h-6 bg-[#F5D90A] border-2 border-black flex items-center justify-center font-black text-xs">
+          <span className="w-6 h-6 rounded-lg bg-[#1F3D2B] text-white flex items-center justify-center font-serif font-bold text-xs">
             3
-          </div>
-          <h2 className="text-lg font-bold uppercase tracking-[0.02em] text-[#111] flex items-center gap-2">
-            <Layers className="w-5 h-5" />
-            <span>CONVERSÃO PARA REELS 9:16 (1080×1920)</span>
+          </span>
+          <h2 className="text-lg font-serif font-bold text-[#1F3D2B] flex items-center gap-2">
+            <Layers className="w-5 h-5 text-[#C4704F]" />
+            <span>Conversão para Reels 9:16 (1080×1920)</span>
           </h2>
         </div>
 
-        <div className="border-2 border-black bg-white p-6 shadow-brutal flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6">
+        <div className="border border-[#1F3D2B]/15 bg-[#FAF7F0] rounded-2xl p-6 shadow-card flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="font-extrabold uppercase text-sm text-[#111]">
+              <span className="font-serif font-bold text-sm text-[#142419]">
                 Enquadramento 9:16 com corte de status bar (120px)
               </span>
-              <span className="px-2 py-0.5 bg-[#F5D90A] text-black text-[10px] font-bold border border-black">
+              <span className="px-2.5 py-0.5 bg-[#EEF3EE] text-[#1F3D2B] text-[11px] font-semibold rounded-md border border-[#1F3D2B]/15">
                 S23 Nativo
               </span>
             </div>
-            <p className="text-xs text-[#555] max-w-2xl leading-relaxed">
+            <p className="text-xs text-[#1F3D2B]/75 max-w-2xl leading-relaxed">
               O Galaxy S23 grava em 1080×2340 pixels. Este comando faz o crop vertical exato para
               1080×1920 a 30 fps, escondendo a barra de status superior (offset Y=120) para
-              conformidade total com o Instagram Reels.
+              conformidade total com o padrão visual do Instagram Reels.
             </p>
           </div>
 
           <button
             type="button"
             onClick={() => copyToClipboard(ffmpegReelsCmd, setCopiadoReels)}
-            className={`h-14 px-6 border-2 border-black text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer shrink-0 shadow-brutal-hover ${
+            className={`h-12 px-6 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer shrink-0 border ${
               copiadoReels
-                ? 'bg-[#E6F4EA] text-[#1D6B3A] border-[#1D6B3A]'
-                : 'bg-[#F5D90A] hover:bg-[#ffe31a] text-black'
+                ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                : 'bg-[#C4704F] hover:bg-[#D98A6C] text-white border-[#C4704F] shadow-card hover:shadow-soft'
             }`}
           >
             {copiadoReels ? (
               <>
-                <Check className="w-5 h-5" />
+                <Check className="w-4 h-4 text-emerald-600" />
                 <span>Copiado para a área de transferência!</span>
               </>
             ) : (
               <>
-                <Sparkles className="w-5 h-5" />
+                <Sparkles className="w-4 h-4" />
                 <span>Copiar comando Reels 9:16 (1080×1920)</span>
               </>
             )}
@@ -566,17 +571,19 @@ export const Edicao: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. NOTA DE SEGURANÇA (BORDA AMARELA) */}
-      <div className="border-2 border-[#F5D90A] bg-[#FFFDE6] p-5 shadow-brutal flex items-start gap-3">
-        <AlertTriangle className="w-6 h-6 text-black shrink-0 mt-0.5" />
+      {/* 4. NOTA DE SEGURANÇA OPERACIONAL */}
+      <div className="border border-[#C4704F]/30 bg-[#FFF9F6] rounded-2xl p-5 shadow-card flex items-start gap-3">
+        <div className="w-8 h-8 rounded-xl bg-[#F4EAE4] text-[#C4704F] flex items-center justify-center shrink-0 mt-0.5">
+          <AlertTriangle className="w-4 h-4" />
+        </div>
         <div>
-          <h4 className="font-extrabold uppercase text-xs tracking-wider text-black mb-1">
-            REGRA DE SEGURANÇA OPERACIONAL (GUIA DE GRAVAÇÃO)
+          <h4 className="font-serif font-bold text-xs uppercase tracking-wider text-[#C4704F] mb-1">
+            Regra de Segurança Operacional (Guia de Gravação)
           </h4>
-          <p className="text-sm font-bold text-black">
+          <p className="text-xs font-medium text-[#142419] leading-relaxed">
             Nunca sobrescreva o vídeo bruto. Rode sempre os comandos do terminal em uma cópia.
-            Mantenha os originais na pasta{' '}
-            <code className="bg-black text-[#F5D90A] px-1.5 py-0.5 text-xs">
+            Mantenha os arquivos originais salvos na pasta{' '}
+            <code className="bg-[#1F3D2B] text-[#FAF7F0] px-2 py-0.5 rounded text-xs font-mono">
               Tutoriais\TUT-XXX\bruto\
             </code>
             .

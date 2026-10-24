@@ -8,9 +8,9 @@ export const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ childr
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white flex flex-col items-center justify-center p-6 text-black">
-        <div className="w-12 h-12 border-4 border-black border-t-[#F5D90A] animate-spin mb-4" />
-        <p className="font-bold uppercase tracking-wider text-sm">Carregando Aline Resolve...</p>
+      <div className="min-h-screen bg-[#F7F2E9] flex flex-col items-center justify-center p-6 text-[#142419]">
+        <div className="w-10 h-10 border-3 border-[#1F3D2B] border-t-[#C4704F] rounded-full animate-spin mb-4" />
+        <p className="font-serif font-bold text-sm text-[#1F3D2B]">Carregando Aline Resolve...</p>
       </div>
     )
   }

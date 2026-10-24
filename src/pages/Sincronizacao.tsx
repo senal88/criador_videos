@@ -14,8 +14,17 @@ import {
   ShieldAlert,
   Plus,
   ArrowRight,
+  Sparkles,
+  CheckCircle2,
+  Lock,
 } from 'lucide-react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog'
 import { toast } from '@/hooks/use-toast'
 
 export const Sincronizacao: React.FC = () => {
@@ -54,7 +63,7 @@ export const Sincronizacao: React.FC = () => {
     getTransferencias().then(setTransferencias).catch(console.error)
   })
 
-  // Ação de verificar conexão com toast brutalista
+  // Ação de verificar conexão
   const handleVerificarConexao = () => {
     setIsChecking(true)
     setTimeout(() => {
@@ -144,92 +153,92 @@ scrcpy.exe --no-audio --max-fps=30 --stay-awake --pause-on-exit=if-error`
   }
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto">
+    <div className="space-y-8 max-w-7xl mx-auto pb-10">
       {/* 1. SEÇÃO: STATUS DOS DISPOSITIVOS */}
       <section>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-[#F5D90A] border-2 border-black flex items-center justify-center font-black text-xs">
+            <span className="w-6 h-6 rounded-lg bg-[#1F3D2B] text-white flex items-center justify-center font-serif font-bold text-xs">
               1
-            </div>
-            <h2 className="text-lg font-bold uppercase tracking-[0.02em] text-[#111]">
-              DISPOSITIVOS VINCULADOS
-            </h2>
+            </span>
+            <h2 className="text-lg font-serif font-bold text-[#1F3D2B]">Dispositivos Vinculados</h2>
           </div>
           <button
             onClick={handleVerificarConexao}
             disabled={isChecking}
-            className="h-10 px-4 bg-[#F5D90A] hover:bg-[#ffe31a] active:translate-y-[1px] text-black border-2 border-black text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer shadow-brutal disabled:opacity-50"
+            className="h-10 px-4 bg-[#C4704F] hover:bg-[#D98A6C] text-white rounded-xl text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer shadow-card hover:shadow-soft disabled:opacity-50"
           >
-            <RefreshCw className={`w-4 h-4 ${isChecking ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-3.5 h-3.5 ${isChecking ? 'animate-spin' : ''}`} />
             <span>{isChecking ? 'Verificando...' : 'Verificar conexão'}</span>
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {/* Card Windows */}
-          <div className="border-2 border-black bg-white p-6 shadow-brutal flex flex-col justify-between">
+          <div className="border border-[#1F3D2B]/15 bg-[#FAF7F0] rounded-2xl p-6 shadow-card hover:shadow-soft transition-all flex flex-col justify-between">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-black text-white flex items-center justify-center border-2 border-black">
+                <div className="w-12 h-12 bg-[#1F3D2B] text-[#FAF7F0] rounded-2xl flex items-center justify-center shadow-sm">
                   <Monitor className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="font-extrabold uppercase text-base text-[#111]">WINDOWS (PC)</h3>
-                  <p className="text-xs text-[#555] font-medium">
+                  <h3 className="font-serif font-bold text-base text-[#142419]">
+                    Windows 11 (PC Desktop)
+                  </h3>
+                  <p className="text-xs text-[#1F3D2B]/70 font-medium">
                     Estação de Edição e Renderização
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 border-2 border-black px-2.5 py-1 bg-[#F4F4F4]">
-                <div
-                  className={`w-3 h-3 border border-black ${
-                    winStatus === 'conectado' ? 'bg-[#F5D90A]' : 'bg-[#999]'
+              <div className="flex items-center gap-2 px-3 py-1 bg-[#EEF3EE] rounded-full border border-[#1F3D2B]/10">
+                <span
+                  className={`w-2 h-2 rounded-full ${
+                    winStatus === 'conectado' ? 'bg-emerald-600 animate-pulse' : 'bg-rose-500'
                   }`}
                 />
-                <span className="text-[11px] font-bold uppercase">
+                <span className="text-[11px] font-semibold text-[#1F3D2B]">
                   {winStatus === 'conectado' ? 'Conectado' : 'Desconectado'}
                 </span>
               </div>
             </div>
 
-            <div className="border-t-2 border-black/10 pt-3 flex items-center justify-between text-xs text-[#555] font-mono">
+            <div className="border-t border-[#1F3D2B]/10 pt-3 flex items-center justify-between text-xs text-[#1F3D2B]/70 font-mono">
               <span>Última verificação:</span>
-              <span className="font-bold text-[#111]">{lastCheckTime}</span>
+              <span className="font-semibold text-[#142419]">{lastCheckTime}</span>
             </div>
           </div>
 
           {/* Card Samsung Galaxy S23 */}
-          <div className="border-2 border-black bg-white p-6 shadow-brutal flex flex-col justify-between">
+          <div className="border border-[#1F3D2B]/15 bg-[#FAF7F0] rounded-2xl p-6 shadow-card hover:shadow-soft transition-all flex flex-col justify-between">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-[#F5D90A] text-black flex items-center justify-center border-2 border-black">
+                <div className="w-12 h-12 bg-[#F4EAE4] text-[#C4704F] rounded-2xl flex items-center justify-center shadow-sm">
                   <Smartphone className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="font-extrabold uppercase text-base text-[#111]">
-                    SAMSUNG GALAXY S23
+                  <h3 className="font-serif font-bold text-base text-[#142419]">
+                    Samsung Galaxy S23
                   </h3>
-                  <p className="text-xs text-[#555] font-medium">
+                  <p className="text-xs text-[#1F3D2B]/70 font-medium">
                     Dispositivo de Captura de Tela 1080p
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 border-2 border-black px-2.5 py-1 bg-[#F4F4F4]">
-                <div
-                  className={`w-3 h-3 border border-black ${
-                    s23Status === 'conectado' ? 'bg-[#F5D90A]' : 'bg-[#999]'
+              <div className="flex items-center gap-2 px-3 py-1 bg-[#EEF3EE] rounded-full border border-[#1F3D2B]/10">
+                <span
+                  className={`w-2 h-2 rounded-full ${
+                    s23Status === 'conectado' ? 'bg-emerald-600 animate-pulse' : 'bg-rose-500'
                   }`}
                 />
-                <span className="text-[11px] font-bold uppercase">
+                <span className="text-[11px] font-semibold text-[#1F3D2B]">
                   {s23Status === 'conectado' ? 'Conectado' : 'Desconectado'}
                 </span>
               </div>
             </div>
 
-            <div className="border-t-2 border-black/10 pt-3 flex items-center justify-between text-xs text-[#555] font-mono">
+            <div className="border-t border-[#1F3D2B]/10 pt-3 flex items-center justify-between text-xs text-[#1F3D2B]/70 font-mono">
               <span>Modo USB ativo:</span>
-              <span className="font-bold text-[#111]">Transferência MTP / adb</span>
+              <span className="font-semibold text-[#142419]">Transferência MTP / adb</span>
             </div>
           </div>
         </div>
@@ -238,31 +247,31 @@ scrcpy.exe --no-audio --max-fps=30 --stay-awake --pause-on-exit=if-error`
       {/* 2. SEÇÃO: MÉTODOS DE TRANSFERÊNCIA */}
       <section>
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-6 h-6 bg-[#F5D90A] border-2 border-black flex items-center justify-center font-black text-xs">
+          <span className="w-6 h-6 rounded-lg bg-[#1F3D2B] text-white flex items-center justify-center font-serif font-bold text-xs">
             2
-          </div>
-          <h2 className="text-lg font-bold uppercase tracking-[0.02em] text-[#111]">
-            MÉTODOS DE TRANSFERÊNCIA (GUIA OPERACIONAL)
+          </span>
+          <h2 className="text-lg font-serif font-bold text-[#1F3D2B]">
+            Métodos de Transferência e Espelhamento
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {/* Método 1: Cabo USB */}
-          <div className="border-2 border-black bg-white p-6 shadow-brutal flex flex-col justify-between">
+          <div className="border border-[#1F3D2B]/15 bg-[#FAF7F0] rounded-2xl p-6 shadow-card hover:shadow-soft transition-all flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-3">
-                <div className="w-8 h-8 bg-black text-white flex items-center justify-center border border-black">
+                <div className="w-9 h-9 rounded-xl bg-[#EEF3EE] text-[#1F3D2B] flex items-center justify-center">
                   <Usb className="w-4 h-4" />
                 </div>
-                <span className="text-[10px] font-bold uppercase px-2 py-0.5 bg-[#F5D90A] text-black border border-black">
+                <span className="text-[10px] font-semibold px-2.5 py-0.5 bg-[#EEF3EE] text-[#1F3D2B] rounded-full border border-[#1F3D2B]/10">
                   Recomendado
                 </span>
               </div>
-              <h3 className="font-extrabold uppercase text-base text-[#111] mb-2">Cabo USB</h3>
-              <p className="text-xs text-[#555] mb-4 leading-relaxed">
+              <h3 className="font-serif font-bold text-base text-[#142419] mb-1.5">Cabo USB</h3>
+              <p className="text-xs text-[#1F3D2B]/75 mb-4 leading-relaxed">
                 Sem conta, sem nuvem. Conecte o cabo original, escolha &quot;Transferência de
-                arquivos&quot; no S23 e copie direto de{' '}
-                <code className="bg-[#F4F4F4] text-black px-1 border border-black text-[11px]">
+                arquivos&quot; no S23 e copie direto da pasta{' '}
+                <code className="bg-[#EEF3EE] text-[#1F3D2B] px-1.5 py-0.5 rounded text-[11px] font-mono">
                   DCIM\Screen recordings
                 </code>
                 .
@@ -272,20 +281,20 @@ scrcpy.exe --no-audio --max-fps=30 --stay-awake --pause-on-exit=if-error`
             <button
               type="button"
               onClick={() => copyToClipboard(passosUsb, setCopiadoUsb)}
-              className={`w-full h-11 border-2 border-black text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
+              className={`w-full h-11 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
                 copiadoUsb
-                  ? 'bg-[#E6F4EA] text-[#1D6B3A] border-[#1D6B3A]'
-                  : 'bg-white hover:bg-[#F5D90A] text-black'
+                  ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                  : 'bg-white hover:bg-[#EEF3EE] text-[#1F3D2B] border-[#1F3D2B]/20 shadow-sm'
               }`}
             >
               {copiadoUsb ? (
                 <>
-                  <Check className="w-4 h-4" />
+                  <Check className="w-4 h-4 text-emerald-600" />
                   <span>Copiado!</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-4 h-4" />
+                  <Copy className="w-4 h-4 text-[#C4704F]" />
                   <span>Copiar passo a passo</span>
                 </>
               )}
@@ -293,40 +302,40 @@ scrcpy.exe --no-audio --max-fps=30 --stay-awake --pause-on-exit=if-error`
           </div>
 
           {/* Método 2: Quick Share */}
-          <div className="border-2 border-black bg-white p-6 shadow-brutal flex flex-col justify-between">
+          <div className="border border-[#1F3D2B]/15 bg-[#FAF7F0] rounded-2xl p-6 shadow-card hover:shadow-soft transition-all flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-3">
-                <div className="w-8 h-8 bg-[#F4F4F4] text-black flex items-center justify-center border border-black">
+                <div className="w-9 h-9 rounded-xl bg-[#F4EAE4] text-[#C4704F] flex items-center justify-center">
                   <Share2 className="w-4 h-4" />
                 </div>
-                <span className="text-[10px] font-bold uppercase px-2 py-0.5 bg-[#F4F4F4] text-black border border-black">
+                <span className="text-[10px] font-semibold px-2.5 py-0.5 bg-[#EEF3EE] text-[#1F3D2B] rounded-full border border-[#1F3D2B]/10">
                   Sem fio
                 </span>
               </div>
-              <h3 className="font-extrabold uppercase text-base text-[#111] mb-2">Quick Share</h3>
-              <p className="text-xs text-[#555] mb-4 leading-relaxed">
-                Envie pela Galeria do celular. Funciona bem para arquivos pequenos ou vídeos de
-                teste de 10 segundos diretamente para o Windows.
+              <h3 className="font-serif font-bold text-base text-[#142419] mb-1.5">Quick Share</h3>
+              <p className="text-xs text-[#1F3D2B]/75 mb-4 leading-relaxed">
+                Envie pela Galeria do celular. Funciona bem para arquivos leves ou vídeos de teste
+                de 10 segundos diretamente para o Windows.
               </p>
             </div>
 
             <button
               type="button"
               onClick={() => copyToClipboard(passosQuickShare, setCopiadoQuickShare)}
-              className={`w-full h-11 border-2 border-black text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
+              className={`w-full h-11 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
                 copiadoQuickShare
-                  ? 'bg-[#E6F4EA] text-[#1D6B3A] border-[#1D6B3A]'
-                  : 'bg-white hover:bg-[#F5D90A] text-black'
+                  ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                  : 'bg-white hover:bg-[#EEF3EE] text-[#1F3D2B] border-[#1F3D2B]/20 shadow-sm'
               }`}
             >
               {copiadoQuickShare ? (
                 <>
-                  <Check className="w-4 h-4" />
+                  <Check className="w-4 h-4 text-emerald-600" />
                   <span>Copiado!</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-4 h-4" />
+                  <Copy className="w-4 h-4 text-[#C4704F]" />
                   <span>Copiar passo a passo</span>
                 </>
               )}
@@ -334,23 +343,23 @@ scrcpy.exe --no-audio --max-fps=30 --stay-awake --pause-on-exit=if-error`
           </div>
 
           {/* Método 3: scrcpy */}
-          <div className="border-2 border-black bg-white p-6 shadow-brutal flex flex-col justify-between">
+          <div className="border border-[#1F3D2B]/15 bg-[#FAF7F0] rounded-2xl p-6 shadow-card hover:shadow-soft transition-all flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-3">
-                <div className="w-8 h-8 bg-black text-[#F5D90A] flex items-center justify-center border border-black">
-                  <Video className="w-4 h-4" />
+                <div className="w-9 h-9 rounded-xl bg-[#1F3D2B] text-white flex items-center justify-center">
+                  <Video className="w-4 h-4 text-[#D98A6C]" />
                 </div>
-                <span className="text-[10px] font-bold uppercase px-2 py-0.5 bg-black text-white border border-black">
+                <span className="text-[10px] font-semibold px-2.5 py-0.5 bg-[#1F3D2B] text-[#FAF7F0] rounded-full">
                   30 FPS
                 </span>
               </div>
-              <h3 className="font-extrabold uppercase text-base text-[#111] mb-2">
+              <h3 className="font-serif font-bold text-base text-[#142419] mb-1.5">
                 scrcpy (Espelhamento)
               </h3>
-              <p className="text-xs text-[#555] mb-4 leading-relaxed">
+              <p className="text-xs text-[#1F3D2B]/75 mb-4 leading-relaxed">
                 30 fps estáveis e tela ativa. Ideal para gravar tela + Facecam circular no OBS
                 Studio sem sobreaquecer o aparelho. Use o script{' '}
-                <code className="bg-[#F4F4F4] text-black px-1 border border-black text-[11px]">
+                <code className="bg-[#EEF3EE] text-[#1F3D2B] px-1.5 py-0.5 rounded text-[11px] font-mono">
                   Abrir_Android_no_Windows.bat
                 </code>
                 .
@@ -361,20 +370,20 @@ scrcpy.exe --no-audio --max-fps=30 --stay-awake --pause-on-exit=if-error`
               <button
                 type="button"
                 onClick={() => copyToClipboard(batScriptContent, setCopiadoBatScript)}
-                className={`w-full h-10 border-2 border-black text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
+                className={`w-full h-10 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer border ${
                   copiadoBatScript
-                    ? 'bg-[#E6F4EA] text-[#1D6B3A] border-[#1D6B3A]'
-                    : 'bg-black text-white hover:bg-[#333]'
+                    ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                    : 'bg-[#1F3D2B] hover:bg-[#2E583E] text-white border-[#1F3D2B] shadow-card'
                 }`}
               >
                 {copiadoBatScript ? (
                   <>
-                    <Check className="w-3.5 h-3.5" />
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
                     <span>Script copiado!</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5" />
+                    <Copy className="w-3.5 h-3.5 text-[#D98A6C]" />
                     <span>Copiar script (.bat)</span>
                   </>
                 )}
@@ -383,20 +392,20 @@ scrcpy.exe --no-audio --max-fps=30 --stay-awake --pause-on-exit=if-error`
               <button
                 type="button"
                 onClick={() => copyToClipboard(passosScrcpy, setCopiadoScrcpyPassos)}
-                className={`w-full h-9 border-2 border-black text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
+                className={`w-full h-9 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all border cursor-pointer ${
                   copiadoScrcpyPassos
-                    ? 'bg-[#E6F4EA] text-[#1D6B3A] border-[#1D6B3A]'
-                    : 'bg-white hover:bg-[#F4F4F4] text-black'
+                    ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                    : 'bg-white hover:bg-[#EEF3EE] text-[#1F3D2B] border-[#1F3D2B]/20 shadow-sm'
                 }`}
               >
                 {copiadoScrcpyPassos ? (
                   <>
-                    <Check className="w-3.5 h-3.5" />
+                    <Check className="w-3.5 h-3.5 text-emerald-600" />
                     <span>Passo a passo copiado!</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5" />
+                    <Copy className="w-3.5 h-3.5 text-[#C4704F]" />
                     <span>Copiar instruções</span>
                   </>
                 )}
@@ -410,45 +419,39 @@ scrcpy.exe --no-audio --max-fps=30 --stay-awake --pause-on-exit=if-error`
       <section>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-[#F5D90A] border-2 border-black flex items-center justify-center font-black text-xs">
+            <span className="w-6 h-6 rounded-lg bg-[#1F3D2B] text-white flex items-center justify-center font-serif font-bold text-xs">
               3
-            </div>
-            <h2 className="text-lg font-bold uppercase tracking-[0.02em] text-[#111]">
-              TRANSFERÊNCIAS RECENTES
+            </span>
+            <h2 className="text-lg font-serif font-bold text-[#1F3D2B]">
+              Histórico de Transferências
             </h2>
           </div>
           <button
             onClick={() => setNovaTransfOpen(true)}
-            className="h-9 px-3 bg-white hover:bg-[#F5D90A] text-black border-2 border-black text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-colors cursor-pointer"
+            className="h-10 px-4 bg-white hover:bg-[#EEF3EE] text-[#1F3D2B] border border-[#1F3D2B]/20 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer shadow-card"
           >
-            <Plus className="w-3.5 h-3.5 stroke-[3]" />
+            <Plus className="w-3.5 h-3.5 text-[#C4704F]" />
             <span>Registrar transferência</span>
           </button>
         </div>
 
-        <div className="border-2 border-black bg-white overflow-hidden shadow-brutal">
+        <div className="border border-[#1F3D2B]/15 bg-[#FAF7F0] rounded-2xl overflow-hidden shadow-card">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[650px]">
               <thead>
-                <tr className="bg-[#F4F4F4] border-b-2 border-black">
-                  <th className="py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#111]">
-                    Arquivo
-                  </th>
-                  <th className="py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#111] w-36">
+                <tr className="bg-[#EEF3EE]/80 border-b border-[#1F3D2B]/10">
+                  <th className="py-3.5 px-5 text-xs font-semibold text-[#1F3D2B]">Arquivo</th>
+                  <th className="py-3.5 px-4 text-xs font-semibold text-[#1F3D2B] w-36">
                     Origem / Destino
                   </th>
-                  <th className="py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#111] w-36">
-                    Método
-                  </th>
-                  <th className="py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#111] w-32">
-                    Data
-                  </th>
-                  <th className="py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#111] w-36 text-right">
+                  <th className="py-3.5 px-4 text-xs font-semibold text-[#1F3D2B] w-36">Método</th>
+                  <th className="py-3.5 px-4 text-xs font-semibold text-[#1F3D2B] w-36">Data</th>
+                  <th className="py-3.5 px-5 text-xs font-semibold text-[#1F3D2B] w-36 text-right">
                     Status
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y border-black">
+              <tbody className="divide-y divide-[#1F3D2B]/10">
                 {transferencias.map((item) => {
                   let dataStr = '-'
                   if (item.created) {
@@ -457,30 +460,32 @@ scrcpy.exe --no-audio --max-fps=30 --stay-awake --pause-on-exit=if-error`
                   }
 
                   return (
-                    <tr key={item.id} className="hover:bg-[#FFFDE6]/60 transition-colors h-12">
-                      <td className="py-3 px-4 font-mono font-bold text-xs text-[#111]">
+                    <tr key={item.id} className="hover:bg-white/80 transition-colors h-14">
+                      <td className="py-3.5 px-5 font-mono text-xs font-semibold text-[#142419]">
                         {item.arquivo}
                       </td>
-                      <td className="py-3 px-4 text-xs font-bold uppercase">
+                      <td className="py-3.5 px-4 text-xs font-medium text-[#1F3D2B]">
                         <span className="flex items-center gap-1.5">
                           <span>{item.origem}</span>
-                          <ArrowRight className="w-3 h-3 text-[#555]" />
+                          <ArrowRight className="w-3 h-3 text-[#C4704F]" />
                           <span>{item.destino}</span>
                         </span>
                       </td>
-                      <td className="py-3 px-4 text-xs font-medium text-[#111]">
-                        <span className="inline-block px-2 py-0.5 bg-[#F4F4F4] border border-black text-[10px] font-bold uppercase">
+                      <td className="py-3.5 px-4 text-xs font-medium text-[#142419]">
+                        <span className="inline-block px-2.5 py-0.5 bg-white border border-[#1F3D2B]/15 rounded-md text-[11px] font-semibold text-[#1F3D2B]">
                           {item.metodo}
                         </span>
                       </td>
-                      <td className="py-3 px-4 text-xs font-mono text-[#555]">{dataStr}</td>
-                      <td className="py-3 px-4 text-right">
+                      <td className="py-3.5 px-4 text-xs font-mono text-[#1F3D2B]/70">{dataStr}</td>
+                      <td className="py-3.5 px-5 text-right">
                         {item.status === 'Concluído' ? (
-                          <span className="inline-block px-2.5 py-1 bg-black text-white font-bold uppercase text-[11px] tracking-wider border border-black">
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 text-emerald-800 text-xs font-semibold rounded-lg border border-emerald-200">
+                            <CheckCircle2 className="w-3 h-3 text-emerald-600" />
                             Concluído
                           </span>
                         ) : (
-                          <span className="inline-block px-2.5 py-1 bg-[#F5D90A] text-black font-bold uppercase text-[11px] tracking-wider border border-black">
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#F4EAE4] text-[#C4704F] text-xs font-semibold rounded-lg border border-[#C4704F]/20">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#C4704F] animate-pulse" />
                             Em andamento
                           </span>
                         )}
@@ -490,10 +495,7 @@ scrcpy.exe --no-audio --max-fps=30 --stay-awake --pause-on-exit=if-error`
                 })}
                 {transferencias.length === 0 && !loading && (
                   <tr>
-                    <td
-                      colSpan={5}
-                      className="py-8 text-center text-xs font-bold uppercase text-[#555]"
-                    >
+                    <td colSpan={5} className="py-8 text-center text-xs text-[#1F3D2B]/70">
                       Nenhuma transferência registrada recentemente.
                     </td>
                   </tr>
@@ -505,35 +507,40 @@ scrcpy.exe --no-audio --max-fps=30 --stay-awake --pause-on-exit=if-error`
       </section>
 
       {/* 4. NOTA DE SEGURANÇA E PRIVACIDADE */}
-      <div className="border-2 border-black bg-[#FFF0D9] p-5 shadow-brutal flex items-start gap-3">
-        <ShieldAlert className="w-6 h-6 text-[#8A4B00] shrink-0 mt-0.5" />
+      <div className="border border-[#C4704F]/30 bg-[#FFF9F6] rounded-2xl p-5 shadow-card flex items-start gap-3">
+        <div className="w-8 h-8 rounded-xl bg-[#F4EAE4] text-[#C4704F] flex items-center justify-center shrink-0 mt-0.5">
+          <ShieldAlert className="w-4 h-4" />
+        </div>
         <div>
-          <h4 className="font-extrabold uppercase text-xs tracking-wider text-[#8A4B00] mb-1">
-            PRIVACIDADE E ANONIMIZAÇÃO LOCAL
+          <h4 className="font-serif font-bold text-xs uppercase tracking-wider text-[#C4704F] mb-1">
+            Privacidade e Anonimização Local das Famílias
           </h4>
-          <p className="text-xs font-bold text-[#8A4B00] leading-relaxed">
-            Nunca envie o vídeo bruto com dados pessoais por nuvem antes de conferir. Editores web e
-            nuvens públicas podem armazenar dados de demonstração. Anonimize localmente no PC antes
-            de qualquer upload.
+          <p className="text-xs font-medium text-[#142419] leading-relaxed">
+            Nunca envie vídeos brutos contendo dados pessoais de idosos ou senhas por nuvens
+            públicas antes de conferir. Anonimize localmente no PC antes de qualquer upload ou
+            postagem.
           </p>
         </div>
       </div>
 
       {/* MODAL REGISTRAR TRANSFERÊNCIA */}
       <Dialog open={novaTransfOpen} onOpenChange={setNovaTransfOpen}>
-        <DialogContent className="border-2 border-black bg-white p-6 max-w-md rounded-none shadow-[6px_6px_0px_0px_#111]">
-          <DialogHeader className="border-b-2 border-black pb-3">
-            <DialogTitle className="text-lg font-bold uppercase tracking-wider flex items-center gap-2">
-              <span className="w-5 h-5 bg-[#F5D90A] border border-black flex items-center justify-center text-xs font-black">
+        <DialogContent className="border border-[#1F3D2B]/20 bg-[#FAF7F0] p-6 max-w-md rounded-2xl shadow-soft-lg">
+          <DialogHeader className="border-b border-[#1F3D2B]/10 pb-3">
+            <DialogTitle className="text-lg font-serif font-bold text-[#1F3D2B] flex items-center gap-2">
+              <span className="w-7 h-7 bg-[#C4704F] text-white rounded-lg flex items-center justify-center text-xs font-bold">
                 +
               </span>
               <span>Registrar Nova Transferência</span>
             </DialogTitle>
+            <DialogDescription className="text-xs text-[#1F3D2B]/70">
+              Mantenha o histórico de clipes importados entre o smartphone S23 e a estação PC.
+            </DialogDescription>
           </DialogHeader>
 
           <form onSubmit={handleCreateTransferencia} className="space-y-4 pt-2">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider mb-1">
+              <label className="block text-xs font-semibold text-[#1F3D2B] mb-1">
                 Nome do Arquivo
               </label>
               <input
@@ -542,19 +549,17 @@ scrcpy.exe --no-audio --max-fps=30 --stay-awake --pause-on-exit=if-error`
                 placeholder="Ex: TUT-005_bruto.mp4"
                 value={arquivoNome}
                 onChange={(e) => setArquivoNome(e.target.value)}
-                className="w-full h-11 px-3 border-2 border-black bg-white font-mono text-sm focus:outline-none focus:ring-2 focus:ring-[#F5D90A]"
+                className="w-full h-11 px-3 border border-[#1F3D2B]/20 rounded-xl bg-white font-mono text-sm focus:outline-none focus:ring-2 focus:ring-[#C4704F]"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider mb-1">
-                  Origem
-                </label>
+                <label className="block text-xs font-semibold text-[#1F3D2B] mb-1">Origem</label>
                 <select
                   value={origem}
                   onChange={(e) => setOrigem(e.target.value as Dispositivo)}
-                  className="w-full h-11 px-3 border-2 border-black bg-white text-xs font-bold uppercase"
+                  className="w-full h-11 px-3 border border-[#1F3D2B]/20 rounded-xl bg-white text-xs font-semibold text-[#1F3D2B]"
                 >
                   <option value="S23">Samsung S23</option>
                   <option value="PC">Windows PC</option>
@@ -562,13 +567,11 @@ scrcpy.exe --no-audio --max-fps=30 --stay-awake --pause-on-exit=if-error`
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider mb-1">
-                  Destino
-                </label>
+                <label className="block text-xs font-semibold text-[#1F3D2B] mb-1">Destino</label>
                 <select
                   value={destino}
                   onChange={(e) => setDestino(e.target.value as Dispositivo)}
-                  className="w-full h-11 px-3 border-2 border-black bg-white text-xs font-bold uppercase"
+                  className="w-full h-11 px-3 border border-[#1F3D2B]/20 rounded-xl bg-white text-xs font-semibold text-[#1F3D2B]"
                 >
                   <option value="PC">Windows PC</option>
                   <option value="S23">Samsung S23</option>
@@ -577,13 +580,13 @@ scrcpy.exe --no-audio --max-fps=30 --stay-awake --pause-on-exit=if-error`
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider mb-1">
+              <label className="block text-xs font-semibold text-[#1F3D2B] mb-1">
                 Método Utilizado
               </label>
               <select
                 value={metodo}
                 onChange={(e) => setMetodo(e.target.value as MetodoTransferencia)}
-                className="w-full h-11 px-3 border-2 border-black bg-white text-xs font-bold uppercase"
+                className="w-full h-11 px-3 border border-[#1F3D2B]/20 rounded-xl bg-white text-xs font-semibold text-[#1F3D2B]"
               >
                 <option value="Cabo USB">Cabo USB (Recomendado)</option>
                 <option value="Quick Share">Quick Share</option>
@@ -591,18 +594,18 @@ scrcpy.exe --no-audio --max-fps=30 --stay-awake --pause-on-exit=if-error`
               </select>
             </div>
 
-            <div className="pt-4 border-t-2 border-black flex gap-3">
+            <div className="pt-4 border-t border-[#1F3D2B]/10 flex gap-3">
               <button
                 type="button"
                 onClick={() => setNovaTransfOpen(false)}
-                className="flex-1 h-11 border-2 border-black bg-white font-bold uppercase text-xs hover:bg-[#F4F4F4]"
+                className="flex-1 h-11 border border-[#1F3D2B]/20 rounded-xl bg-white font-semibold text-xs text-[#1F3D2B] hover:bg-[#EEF3EE]"
               >
                 Cancelar
               </button>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex-1 h-11 border-2 border-black bg-[#F5D90A] font-bold uppercase text-xs hover:bg-[#ffe31a] disabled:opacity-50"
+                className="flex-1 h-11 rounded-xl bg-[#C4704F] hover:bg-[#D98A6C] text-white font-semibold text-xs transition-colors shadow-card disabled:opacity-50"
               >
                 {isSubmitting ? 'Salvando...' : 'Registrar'}
               </button>
